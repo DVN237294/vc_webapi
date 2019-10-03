@@ -30,6 +30,22 @@ namespace vc_webapi
             services.AddControllers();
             services.AddEntityFrameworkNpgsql().AddDbContext<Vc_webapiContext>(opt =>
                 opt.UseNpgsql(Configuration.GetConnectionString("PostgresqlConnection")));
+
+            //Generate swagger json document
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "vc_webapi",
+                    Version = "v1",
+                    Description = "Web API for the Virtual Classroom project",
+                    Contact = new Microsoft.OpenApi.Models.OpenApiContact
+                    {
+                        Email = "237294@via.dk",
+                        Name = "David V. Nielsen"
+                    }
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +55,15 @@ namespace vc_webapi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //Enable swagger (doc generation and UI)
+            app.UseSwagger();
+
+            //Enable swagger UI
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "vc_webapi v1");
+            });
 
             app.UseHttpsRedirection();
 
