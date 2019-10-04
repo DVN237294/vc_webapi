@@ -27,6 +27,7 @@ namespace vc_webapi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddControllers();
             services.AddEntityFrameworkNpgsql().AddDbContext<Vc_webapiContext>(opt =>
                 opt.UseNpgsql(Configuration.GetConnectionString("PostgresqlConnection")));
@@ -55,6 +56,11 @@ namespace vc_webapi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(opts =>
+            {
+                opts.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+            });
 
             //Enable swagger (doc generation and UI)
             app.UseSwagger();
