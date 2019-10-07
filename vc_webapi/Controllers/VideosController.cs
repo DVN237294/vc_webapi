@@ -21,11 +21,13 @@ namespace vc_webapi.Controllers
             _context = context;
         }
 
-        // GET: api/Videos
+        // GET: api/Videos?limit=5
         [HttpGet]
-        public IEnumerable<Video> GetVideo()
+        public IEnumerable<Video> GetVideo([FromQuery] int limit)
         {
-            return _context.Video;
+            if (limit <= 0)
+                return _context.Video;
+            return _context.Video.Take(limit);
         }
 
         // GET: api/Videos/5
