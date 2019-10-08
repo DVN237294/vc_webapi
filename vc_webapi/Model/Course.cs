@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace vc_webapi.Model
 {
-    public class Video
+    public class Course
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
-        public string URL { get; set; }
-        public long Duration { get; set; }
         public string Name { get; set; }
-        public Course Course { get; set; }
-        public string ThumbnailURL { get; set; }
-        public DateTime RecordTimeUTC { get; set; }
     }
 }
