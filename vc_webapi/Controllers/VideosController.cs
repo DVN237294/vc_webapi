@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ namespace vc_webapi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class VideosController : ControllerBase
     {
         private readonly Vc_webapiContext _context;
@@ -23,6 +25,7 @@ namespace vc_webapi.Controllers
 
         // GET: api/Videos?limit=5
         [HttpGet]
+        [AllowAnonymous]
         public IEnumerable<Video> GetVideo([FromQuery] int limit)
         {
             if (limit <= 0)
