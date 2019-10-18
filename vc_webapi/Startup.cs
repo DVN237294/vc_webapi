@@ -106,6 +106,14 @@ namespace vc_webapi
                 app.UseDeveloperExceptionPage();
             }
 
+            using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                using (var db = scope.ServiceProvider.GetService<Vc_webapiContext>())
+                    db.Database.Migrate();
+                using (var db = scope.ServiceProvider.GetService<AuthenticationContext>())
+                    db.Database.Migrate();
+            }
+
             app.UseAuthentication();
 
             app.UseCors(opts =>
