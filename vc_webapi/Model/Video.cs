@@ -15,8 +15,7 @@ namespace vc_webapi.Model
         public string URL { get; set; }
         public long Duration { get; set; }
         public string Name { get; set; }
-        public Course Course { get; set; }
         public string ThumbnailURL { get; set; }
-        public DateTime RecordTimeUTC { get; set; }
+        public DateTime RecordTimeUtc { get; set; }
     }
 }

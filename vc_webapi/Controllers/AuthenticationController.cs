@@ -16,13 +16,13 @@ namespace vc_webapi.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        private AuthenticationContext db;
-        private UserManager<User> userManager;
-        private IJWTTokenGenerator tokenGenerator;
+        private readonly Vc_webapiContext modelDb;
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly IJWTTokenGenerator tokenGenerator;
 
-        public AuthenticationController(AuthenticationContext db, UserManager<User> userManager, IJWTTokenGenerator tokenGenerator)
+        public AuthenticationController(Vc_webapiContext modelDb, UserManager<IdentityUser> userManager, IJWTTokenGenerator tokenGenerator)
         {
-            this.db = db;
+            this.modelDb = modelDb;
             this.userManager = userManager;
             this.tokenGenerator = tokenGenerator;
         }
@@ -32,9 +32,9 @@ namespace vc_webapi.Controllers
         public async Task<IActionResult> Authenticate([FromBody] LoginModel login)
         {
             var user = await userManager.FindByNameAsync(login.UserName);
-            var claims = await userManager.GetClaimsAsync(user);
             if(user != null && await userManager.CheckPasswordAsync(user, login.Password))
             {
+                var claims = await userManager.GetClaimsAsync(user);
                 var token = tokenGenerator.GenerateToken(claims);
                 return Ok(new AuthenticationResponse() {Token = token, UserName = login.UserName });
             }
@@ -44,24 +44,32 @@ namespace vc_webapi.Controllers
         [HttpPost]
         [Route("Register")]
         [ProducesResponseType(typeof(IdentityResult), 200)]
-        public async Task<IActionResult> RegisterUser([FromBody] UserSignupModel user)
+        public async Task<IActionResult> RegisterUser([FromBody] UserSignupModel userModel)
         {
-            if (string.IsNullOrEmpty(user.Password) || string.IsNullOrEmpty(user.UserName))
+            if (string.IsNullOrEmpty(userModel.Password) || string.IsNullOrEmpty(userModel.UserName))
                 return BadRequest();
 
-            var result = await userManager.CreateAsync(new User()
+            var createUserResult = await userManager.CreateAsync(new IdentityUser()
             {
-                Email = user.EmailAddress,
-                FullName = user.FullName,
-                UserName = user.UserName
-            }, user.Password);
+                Email = userModel.Email,
+                UserName = userModel.UserName
+            }, userModel.Password);
 
-            if (result.Succeeded)
+            if (createUserResult.Succeeded)
             {
-                var usr = await userManager.FindByNameAsync(user.UserName);
-                await userManager.AddClaimAsync(usr, new Claim("UserID", usr.Id));
+                var user = await userManager.FindByNameAsync(userModel.UserName);
+                await userManager.AddClaimsAsync(user, new[] { new Claim("UserId", user.Id), new Claim("UserName", user.UserName) });
+
+                //Decoupling domain users from Identity framework, by correlating a domain user with the identity.
+                modelDb.Users.Add(new Student
+                {
+                    UserName = user.UserName, //correlation
+                    Email = userModel.Email,
+                    FullName = userModel.FullName,
+                });
+                await modelDb.SaveChangesAsync();
             }
-            return Ok(result);
+            return Ok(createUserResult);
         }
     }
 }

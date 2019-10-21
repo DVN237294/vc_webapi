@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace vc_webapi.Model
 {
-    public class Course
+    public class Enrollment
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
-        public string Name { get; set; }
-        public IList<Session> Sessions { get; set; }
+        public User User { get; set; }
+        public Course Course { get; set; }
+        public DateTime EnrollmentDateUtc { get; set; }
     }
 }

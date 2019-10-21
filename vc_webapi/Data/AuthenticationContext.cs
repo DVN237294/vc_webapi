@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,6 @@ namespace vc_webapi.Data
 
         }
 
-        public DbSet<User> ApplicationUsers { get; set; }
+        public DbSet<IdentityUser> ApplicationUsers { get; set; }
     }
 }

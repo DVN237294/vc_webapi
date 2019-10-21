@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using vc_webapi.Data;
@@ -9,9 +10,10 @@ using vc_webapi.Data;
 namespace vc_webapi.Migrations
 {
     [DbContext(typeof(Vc_webapiContext))]
-    partial class Vc_webapiContextModelSnapshot : ModelSnapshot
+    [Migration("20191019225421_conforming-to-domainmodel")]
+    partial class conformingtodomainmodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,7 +33,7 @@ namespace vc_webapi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Course");
                 });
 
             modelBuilder.Entity("vc_webapi.Model.Enrollment", b =>
@@ -43,9 +45,6 @@ namespace vc_webapi.Migrations
 
                     b.Property<long?>("CourseId")
                         .HasColumnType("bigint");
-
-                    b.Property<DateTime>("EnrollmentDateUtc")
-                        .HasColumnType("timestamp without time zone");
 
                     b.Property<long?>("UserId")
                         .HasColumnType("bigint");
@@ -86,10 +85,6 @@ namespace vc_webapi.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
@@ -110,8 +105,6 @@ namespace vc_webapi.Migrations
                         .IsUnique();
 
                     b.ToTable("Users");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
                 });
 
             modelBuilder.Entity("vc_webapi.Model.Video", b =>
@@ -127,7 +120,7 @@ namespace vc_webapi.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("RecordTimeUtc")
+                    b.Property<DateTime>("RecordTimeUTC")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<long?>("SessionId")
@@ -144,20 +137,6 @@ namespace vc_webapi.Migrations
                     b.HasIndex("SessionId");
 
                     b.ToTable("Videos");
-                });
-
-            modelBuilder.Entity("vc_webapi.Model.Student", b =>
-                {
-                    b.HasBaseType("vc_webapi.Model.User");
-
-                    b.HasDiscriminator().HasValue("Student");
-                });
-
-            modelBuilder.Entity("vc_webapi.Model.Users.Admin", b =>
-                {
-                    b.HasBaseType("vc_webapi.Model.User");
-
-                    b.HasDiscriminator().HasValue("Admin");
                 });
 
             modelBuilder.Entity("vc_webapi.Model.Enrollment", b =>
