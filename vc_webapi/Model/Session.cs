@@ -21,7 +21,7 @@ namespace vc_webapi.Model
         [NotMapped]
         public IEnumerable<User> Participants
         {
-            get => UserSessions.Select(us => us.User);
+            get => UserSessions.Count > 0 ? UserSessions.Select(us => us.User) : null;
             set
             {
                 foreach(var u in value)

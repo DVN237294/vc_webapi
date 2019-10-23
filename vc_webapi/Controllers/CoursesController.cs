@@ -48,7 +48,7 @@ namespace vc_webapi.Controllers
 
             var course = await db.Courses
                 .If(includeSessions, q => q.Include(e => e.Sessions)
-                    .If(includeSessionParticipants, q2 => q2.ThenInclude(e => e.UserSessions))
+                    .If(includeSessionParticipants, q2 => q2.ThenInclude(e => e.UserSessions).ThenInclude(e => e.User))
                 .If(includeSessions, q => q.Include(e => e.Sessions)
                     .If(includeSessionRecordings, q2 => q2.ThenInclude(e => e.Recordings))))
                 .SingleOrDefaultAsync(c => c.Id == id);
