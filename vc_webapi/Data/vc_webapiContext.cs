@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,13 +19,25 @@ namespace vc_webapi.Data
         public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<Course> Courses { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            modelBuilder.Entity<User>()
+            base.OnModelCreating(builder);
+
+            builder.Entity<User>()
                 .HasIndex(b => b.UserName)
                 .IsUnique();
-            modelBuilder.Entity<Admin>();
-            modelBuilder.Entity<Student>();
+            builder.Entity<Admin>();
+            builder.Entity<Student>();
+
+            builder.Entity<UserSession>()
+                .HasOne(x => x.Session)
+                .WithMany(x => x.UserSessions)
+                .HasForeignKey(x => x.SessionId);
+
+            builder.Entity<UserSession>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.Sessions)
+                .HasForeignKey(x => x.UserId);
         }
     }
 }

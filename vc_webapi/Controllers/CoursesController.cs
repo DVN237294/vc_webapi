@@ -31,7 +31,7 @@ namespace vc_webapi.Controllers
         {
             var query = db.Courses
                 .If(includeSessions, q => q.Include(e => e.Sessions)
-                    .If(includeSessionParticipants, q2 => q2.ThenInclude(e => e.Participants))
+                    .If(includeSessionParticipants, q2 => q2.ThenInclude(e => e.UserSessions).ThenInclude(e => e.User))
                 .If(includeSessions, q => q.Include(e => e.Sessions)
                     .If(includeSessionRecordings, q2 => q2.ThenInclude(e => e.Recordings))));
 
@@ -48,7 +48,7 @@ namespace vc_webapi.Controllers
 
             var course = await db.Courses
                 .If(includeSessions, q => q.Include(e => e.Sessions)
-                    .If(includeSessionParticipants, q2 => q2.ThenInclude(e => e.Participants))
+                    .If(includeSessionParticipants, q2 => q2.ThenInclude(e => e.UserSessions))
                 .If(includeSessions, q => q.Include(e => e.Sessions)
                     .If(includeSessionRecordings, q2 => q2.ThenInclude(e => e.Recordings))))
                 .SingleOrDefaultAsync(c => c.Id == id);
@@ -95,14 +95,16 @@ namespace vc_webapi.Controllers
                 {
                     return NotFound();
                 }
-                var users = await db.Users.Where(user => session.ParticipantUserIds.Contains(user.Id)).ToListAsync();
+
+                //Contains implementation of ICollection is not supported in EF, so cast to IEnumerable:
+                var users = await db.Users.Where(user => (session.ParticipantUserIds as IEnumerable<long>).Contains(user.Id)).ToListAsync();
                 course.Sessions = new List<Session>
                 {
                     new Session
                     {
                         Date = session.Date,
-                        Participants = users,
-                        Recordings = session.Recordings
+                        Recordings = session.Recordings,
+                        Participants = users
                     }
                 };
                 await db.SaveChangesAsync();

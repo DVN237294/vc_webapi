@@ -13,6 +13,6 @@ namespace vc_webapi.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
         public string Name { get; set; }
-        public IList<Session> Sessions { get; set; }
+        public ICollection<Session> Sessions { get; set; }
     }
 }

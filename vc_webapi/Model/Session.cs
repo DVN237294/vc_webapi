@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,8 +14,25 @@ namespace vc_webapi.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
         public DateTime Date { get; set; }
-        public IList<Video> Recordings { get; set; }
-        public IList<User> Participants { get; set; }
-
+        public ICollection<Video> Recordings { get; set; }
+        [JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
+        public ICollection<UserSession> UserSessions { get; set; } = new List<UserSession>();
+        [NotMapped]
+        public IEnumerable<User> Participants
+        {
+            get => UserSessions.Select(us => us.User);
+            set
+            {
+                foreach(var u in value)
+                {
+                    UserSessions.Add(new UserSession
+                    {
+                        Session = this,
+                        User = u
+                    });
+                }
+            }
+        }
     }
 }
