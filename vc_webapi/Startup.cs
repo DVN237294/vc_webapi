@@ -11,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using vc_webapi.Models;
 using vc_webapi.Data;
 using vc_webapi.Model;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -19,6 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using vc_webapi.Helpers;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace vc_webapi
 {
@@ -40,7 +40,7 @@ namespace vc_webapi
 
             //Authentication setup
             services.AddDbContext<AuthenticationContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("PostgresqlConnection")));
-            services.AddIdentityCore<User>().AddEntityFrameworkStores<AuthenticationContext>();
+            services.AddIdentityCore<IdentityUser>().AddEntityFrameworkStores<AuthenticationContext>();
            
             //Generate swagger json document
             services.AddSwaggerGen(c =>

@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using vc_webapi.Model;
-using vc_webapi.Models;
+using vc_webapi.Data;
+using vc_webapi.Helpers;
+using vc_webapi.Model.Users;
 
 namespace vc_webapi.Controllers
 {
@@ -16,11 +18,11 @@ namespace vc_webapi.Controllers
     [Authorize]
     public class VideosController : ControllerBase
     {
-        private readonly Vc_webapiContext _context;
+        private readonly Vc_webapiContext db;
 
         public VideosController(Vc_webapiContext context)
         {
-            _context = context;
+            db = context;
         }
 
         // GET: api/Videos?limit=5
@@ -29,8 +31,8 @@ namespace vc_webapi.Controllers
         public IEnumerable<Video> GetVideo([FromQuery] int limit)
         {
             if (limit <= 0)
-                return _context.Video;
-            return _context.Video.Take(limit);
+                return db.Videos;
+            return db.Videos.Take(limit);
         }
 
         // GET: api/Videos/5
@@ -42,7 +44,7 @@ namespace vc_webapi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var video = await _context.Video.FindAsync(id);
+            var video = await db.Videos.FindAsync(id);
 
             if (video == null)
             {
@@ -66,24 +68,26 @@ namespace vc_webapi.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(video).State = EntityState.Modified;
-
-            try
+            if (await this.User(db) is Admin)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!VideoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                db.Entry(video).State = EntityState.Modified;
 
+                try
+                {
+                    await db.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!VideoExists(id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
             return NoContent();
         }
 
@@ -96,10 +100,14 @@ namespace vc_webapi.Controllers
                 return BadRequest(ModelState);
             }
 
-            _context.Video.Add(video);
-            await _context.SaveChangesAsync();
+            if (await this.User(db) is Admin)
+            {
+                db.Videos.Add(video);
+                await db.SaveChangesAsync();
 
-            return CreatedAtAction("GetVideo", new { id = video.Id }, video);
+                return CreatedAtAction("GetVideo", new { id = video.Id }, video);
+            }
+            return Unauthorized();
         }
 
         // DELETE: api/Videos/5
@@ -111,21 +119,25 @@ namespace vc_webapi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var video = await _context.Video.FindAsync(id);
-            if (video == null)
+            if (await this.User(db) is Admin)
             {
-                return NotFound();
+                var video = await db.Videos.FindAsync(id);
+                if (video == null)
+                {
+                    return NotFound();
+                }
+
+                db.Videos.Remove(video);
+                await db.SaveChangesAsync();
+
+                return Ok(video);
             }
-
-            _context.Video.Remove(video);
-            await _context.SaveChangesAsync();
-
-            return Ok(video);
+            return Unauthorized();
         }
 
         private bool VideoExists(long id)
         {
-            return _context.Video.Any(e => e.Id == id);
+            return db.Videos.Any(e => e.Id == id);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using vc_webapi.Data;
@@ -9,9 +10,10 @@ using vc_webapi.Data;
 namespace vc_webapi.Migrations
 {
     [DbContext(typeof(Vc_webapiContext))]
-    partial class Vc_webapiContextModelSnapshot : ModelSnapshot
+    [Migration("20191021214340_conform-property-names")]
+    partial class conformpropertynames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,10 +98,15 @@ namespace vc_webapi.Migrations
                     b.Property<string>("FullName")
                         .HasColumnType("text");
 
+                    b.Property<long?>("SessionId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("UserName")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SessionId");
 
                     b.HasIndex("UserName")
                         .IsUnique();
@@ -107,28 +114,6 @@ namespace vc_webapi.Migrations
                     b.ToTable("Users");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("User");
-                });
-
-            modelBuilder.Entity("vc_webapi.Model.UserSession", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<long>("SessionId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SessionId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserSession");
                 });
 
             modelBuilder.Entity("vc_webapi.Model.Video", b =>
@@ -195,19 +180,11 @@ namespace vc_webapi.Migrations
                         .HasForeignKey("CourseId");
                 });
 
-            modelBuilder.Entity("vc_webapi.Model.UserSession", b =>
+            modelBuilder.Entity("vc_webapi.Model.User", b =>
                 {
-                    b.HasOne("vc_webapi.Model.Session", "Session")
+                    b.HasOne("vc_webapi.Model.Session", null)
                         .WithMany("Participants")
-                        .HasForeignKey("SessionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("vc_webapi.Model.User", "User")
-                        .WithMany("Sessions")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SessionId");
                 });
 
             modelBuilder.Entity("vc_webapi.Model.Video", b =>
