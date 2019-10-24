@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using vc_webapi.Data;
@@ -9,9 +10,10 @@ using vc_webapi.Data;
 namespace vc_webapi.Migrations
 {
     [DbContext(typeof(Vc_webapiContext))]
-    partial class Vc_webapiContextModelSnapshot : ModelSnapshot
+    [Migration("20191024141205_data-seeding")]
+    partial class dataseeding
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,14 +77,14 @@ namespace vc_webapi.Migrations
                         {
                             Id = 100L,
                             CourseId = 100L,
-                            EnrollmentDateUtc = new DateTime(2019, 7, 26, 14, 31, 2, 254, DateTimeKind.Utc).AddTicks(9383),
+                            EnrollmentDateUtc = new DateTime(2019, 7, 26, 14, 12, 4, 951, DateTimeKind.Utc).AddTicks(5934),
                             UserId = 100L
                         },
                         new
                         {
                             Id = 101L,
                             CourseId = 101L,
-                            EnrollmentDateUtc = new DateTime(2019, 7, 26, 14, 31, 2, 255, DateTimeKind.Utc).AddTicks(31),
+                            EnrollmentDateUtc = new DateTime(2019, 7, 26, 14, 12, 4, 951, DateTimeKind.Utc).AddTicks(6595),
                             UserId = 100L
                         });
                 });
@@ -111,25 +113,25 @@ namespace vc_webapi.Migrations
                         {
                             Id = 100L,
                             CourseId = 100L,
-                            Date = new DateTime(2019, 10, 24, 14, 31, 2, 254, DateTimeKind.Utc).AddTicks(6150)
+                            Date = new DateTime(2019, 10, 24, 14, 12, 4, 951, DateTimeKind.Utc).AddTicks(2787)
                         },
                         new
                         {
                             Id = 101L,
                             CourseId = 100L,
-                            Date = new DateTime(2019, 10, 24, 14, 31, 2, 254, DateTimeKind.Utc).AddTicks(6701)
+                            Date = new DateTime(2019, 10, 24, 14, 12, 4, 951, DateTimeKind.Utc).AddTicks(3354)
                         },
                         new
                         {
                             Id = 102L,
                             CourseId = 101L,
-                            Date = new DateTime(2019, 10, 24, 14, 31, 2, 254, DateTimeKind.Utc).AddTicks(7799)
+                            Date = new DateTime(2019, 10, 24, 14, 12, 4, 951, DateTimeKind.Utc).AddTicks(4428)
                         },
                         new
                         {
                             Id = 103L,
                             CourseId = 101L,
-                            Date = new DateTime(2019, 10, 24, 14, 31, 2, 254, DateTimeKind.Utc).AddTicks(7800)
+                            Date = new DateTime(2019, 10, 24, 14, 12, 4, 951, DateTimeKind.Utc).AddTicks(4430)
                         });
                 });
 
@@ -183,32 +185,6 @@ namespace vc_webapi.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserSession");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 100L,
-                            SessionId = 100L,
-                            UserId = 100L
-                        },
-                        new
-                        {
-                            Id = 101L,
-                            SessionId = 101L,
-                            UserId = 100L
-                        },
-                        new
-                        {
-                            Id = 102L,
-                            SessionId = 102L,
-                            UserId = 100L
-                        },
-                        new
-                        {
-                            Id = 103L,
-                            SessionId = 103L,
-                            UserId = 100L
-                        });
                 });
 
             modelBuilder.Entity("vc_webapi.Model.Video", b =>
@@ -248,7 +224,7 @@ namespace vc_webapi.Migrations
                             Id = 100L,
                             Duration = 10L,
                             Name = "SDJ Lesson 1",
-                            RecordTimeUtc = new DateTime(2019, 10, 24, 14, 31, 2, 254, DateTimeKind.Utc).AddTicks(5127),
+                            RecordTimeUtc = new DateTime(2019, 10, 24, 14, 12, 4, 951, DateTimeKind.Utc).AddTicks(1657),
                             SessionId = 100L,
                             ThumbnailURL = "/assets/video.jpeg",
                             URL = "/assets/testvideo.mp4"
@@ -258,7 +234,7 @@ namespace vc_webapi.Migrations
                             Id = 101L,
                             Duration = 10L,
                             Name = "SDJ Lesson 1 part 2",
-                            RecordTimeUtc = new DateTime(2019, 10, 24, 15, 16, 2, 254, DateTimeKind.Utc).AddTicks(6065),
+                            RecordTimeUtc = new DateTime(2019, 10, 24, 14, 57, 4, 951, DateTimeKind.Utc).AddTicks(2673),
                             SessionId = 100L,
                             ThumbnailURL = "/assets/video.jpeg",
                             URL = "/assets/testvideo.mp4"
@@ -268,7 +244,7 @@ namespace vc_webapi.Migrations
                             Id = 102L,
                             Duration = 10L,
                             Name = "SDJ Lesson 1 part 3",
-                            RecordTimeUtc = new DateTime(2019, 10, 24, 16, 1, 2, 254, DateTimeKind.Utc).AddTicks(6133),
+                            RecordTimeUtc = new DateTime(2019, 10, 24, 15, 42, 4, 951, DateTimeKind.Utc).AddTicks(2741),
                             SessionId = 100L,
                             ThumbnailURL = "/assets/video.jpeg",
                             URL = "/assets/testvideo.mp4"
@@ -278,7 +254,7 @@ namespace vc_webapi.Migrations
                             Id = 103L,
                             Duration = 10L,
                             Name = "SDJ Lesson 1 part 4",
-                            RecordTimeUtc = new DateTime(2019, 10, 24, 16, 56, 2, 254, DateTimeKind.Utc).AddTicks(6134),
+                            RecordTimeUtc = new DateTime(2019, 10, 24, 16, 37, 4, 951, DateTimeKind.Utc).AddTicks(2743),
                             SessionId = 100L,
                             ThumbnailURL = "/assets/video.jpeg",
                             URL = "/assets/testvideo.mp4"
@@ -288,7 +264,7 @@ namespace vc_webapi.Migrations
                             Id = 104L,
                             Duration = 10L,
                             Name = "SDJ Lesson 2",
-                            RecordTimeUtc = new DateTime(2019, 10, 31, 14, 31, 2, 254, DateTimeKind.Utc).AddTicks(6136),
+                            RecordTimeUtc = new DateTime(2019, 10, 31, 14, 12, 4, 951, DateTimeKind.Utc).AddTicks(2744),
                             SessionId = 101L,
                             ThumbnailURL = "/assets/video.jpeg",
                             URL = "/assets/testvideo.mp4"
@@ -298,7 +274,7 @@ namespace vc_webapi.Migrations
                             Id = 105L,
                             Duration = 10L,
                             Name = "SDJ Lesson 2 part 2",
-                            RecordTimeUtc = new DateTime(2019, 10, 31, 15, 16, 2, 254, DateTimeKind.Utc).AddTicks(6147),
+                            RecordTimeUtc = new DateTime(2019, 10, 31, 14, 57, 4, 951, DateTimeKind.Utc).AddTicks(2755),
                             SessionId = 101L,
                             ThumbnailURL = "/assets/video.jpeg",
                             URL = "/assets/testvideo.mp4"
@@ -308,7 +284,7 @@ namespace vc_webapi.Migrations
                             Id = 106L,
                             Duration = 10L,
                             Name = "SDJ Lesson 2 part 3",
-                            RecordTimeUtc = new DateTime(2019, 10, 31, 16, 1, 2, 254, DateTimeKind.Utc).AddTicks(6148),
+                            RecordTimeUtc = new DateTime(2019, 10, 31, 15, 42, 4, 951, DateTimeKind.Utc).AddTicks(2756),
                             SessionId = 101L,
                             ThumbnailURL = "/assets/video.jpeg",
                             URL = "/assets/testvideo.mp4"
@@ -318,7 +294,7 @@ namespace vc_webapi.Migrations
                             Id = 107L,
                             Duration = 10L,
                             Name = "SDJ Lesson 2 part 3",
-                            RecordTimeUtc = new DateTime(2019, 10, 31, 16, 56, 2, 254, DateTimeKind.Utc).AddTicks(6149),
+                            RecordTimeUtc = new DateTime(2019, 10, 31, 16, 37, 4, 951, DateTimeKind.Utc).AddTicks(2757),
                             SessionId = 101L,
                             ThumbnailURL = "/assets/video.jpeg",
                             URL = "/assets/testvideo.mp4"
@@ -328,7 +304,7 @@ namespace vc_webapi.Migrations
                             Id = 108L,
                             Duration = 10L,
                             Name = "AJP Lesson 1",
-                            RecordTimeUtc = new DateTime(2019, 10, 25, 14, 31, 2, 254, DateTimeKind.Utc).AddTicks(7788),
+                            RecordTimeUtc = new DateTime(2019, 10, 25, 14, 12, 4, 951, DateTimeKind.Utc).AddTicks(4416),
                             SessionId = 102L,
                             ThumbnailURL = "/assets/video.jpeg",
                             URL = "/assets/testvideo.mp4"
@@ -338,7 +314,7 @@ namespace vc_webapi.Migrations
                             Id = 109L,
                             Duration = 10L,
                             Name = "AJP Lesson 1 part 2",
-                            RecordTimeUtc = new DateTime(2019, 10, 25, 15, 16, 2, 254, DateTimeKind.Utc).AddTicks(7792),
+                            RecordTimeUtc = new DateTime(2019, 10, 25, 14, 57, 4, 951, DateTimeKind.Utc).AddTicks(4421),
                             SessionId = 102L,
                             ThumbnailURL = "/assets/video.jpeg",
                             URL = "/assets/testvideo.mp4"
@@ -348,7 +324,7 @@ namespace vc_webapi.Migrations
                             Id = 110L,
                             Duration = 10L,
                             Name = "AJP Lesson 1 part 3",
-                            RecordTimeUtc = new DateTime(2019, 10, 25, 16, 1, 2, 254, DateTimeKind.Utc).AddTicks(7793),
+                            RecordTimeUtc = new DateTime(2019, 10, 25, 15, 42, 4, 951, DateTimeKind.Utc).AddTicks(4423),
                             SessionId = 102L,
                             ThumbnailURL = "/assets/video.jpeg",
                             URL = "/assets/testvideo.mp4"
@@ -358,7 +334,7 @@ namespace vc_webapi.Migrations
                             Id = 111L,
                             Duration = 10L,
                             Name = "AJP Lesson 1 part 4",
-                            RecordTimeUtc = new DateTime(2019, 10, 25, 16, 56, 2, 254, DateTimeKind.Utc).AddTicks(7794),
+                            RecordTimeUtc = new DateTime(2019, 10, 25, 16, 37, 4, 951, DateTimeKind.Utc).AddTicks(4424),
                             SessionId = 102L,
                             ThumbnailURL = "/assets/video.jpeg",
                             URL = "/assets/testvideo.mp4"
@@ -368,7 +344,7 @@ namespace vc_webapi.Migrations
                             Id = 112L,
                             Duration = 10L,
                             Name = "AJP Lesson 2",
-                            RecordTimeUtc = new DateTime(2019, 11, 1, 14, 31, 2, 254, DateTimeKind.Utc).AddTicks(7795),
+                            RecordTimeUtc = new DateTime(2019, 11, 1, 14, 12, 4, 951, DateTimeKind.Utc).AddTicks(4425),
                             SessionId = 103L,
                             ThumbnailURL = "/assets/video.jpeg",
                             URL = "/assets/testvideo.mp4"
@@ -378,7 +354,7 @@ namespace vc_webapi.Migrations
                             Id = 113L,
                             Duration = 10L,
                             Name = "AJP Lesson 2 part 2",
-                            RecordTimeUtc = new DateTime(2019, 11, 1, 15, 16, 2, 254, DateTimeKind.Utc).AddTicks(7796),
+                            RecordTimeUtc = new DateTime(2019, 11, 1, 14, 57, 4, 951, DateTimeKind.Utc).AddTicks(4425),
                             SessionId = 103L,
                             ThumbnailURL = "/assets/video.jpeg",
                             URL = "/assets/testvideo.mp4"
@@ -388,7 +364,7 @@ namespace vc_webapi.Migrations
                             Id = 114L,
                             Duration = 10L,
                             Name = "AJP Lesson 2 part 3",
-                            RecordTimeUtc = new DateTime(2019, 11, 1, 16, 1, 2, 254, DateTimeKind.Utc).AddTicks(7797),
+                            RecordTimeUtc = new DateTime(2019, 11, 1, 15, 42, 4, 951, DateTimeKind.Utc).AddTicks(4426),
                             SessionId = 103L,
                             ThumbnailURL = "/assets/video.jpeg",
                             URL = "/assets/testvideo.mp4"
@@ -398,7 +374,7 @@ namespace vc_webapi.Migrations
                             Id = 115L,
                             Duration = 10L,
                             Name = "AJP Lesson 2 part 3",
-                            RecordTimeUtc = new DateTime(2019, 11, 1, 16, 56, 2, 254, DateTimeKind.Utc).AddTicks(7798),
+                            RecordTimeUtc = new DateTime(2019, 11, 1, 16, 37, 4, 951, DateTimeKind.Utc).AddTicks(4427),
                             SessionId = 103L,
                             ThumbnailURL = "/assets/video.jpeg",
                             URL = "/assets/testvideo.mp4"
