@@ -19,5 +19,7 @@ namespace vc_webapi.Model
         [Newtonsoft.Json.JsonIgnore]
         [System.Text.Json.Serialization.JsonIgnore]
         public ICollection<UserSession> Sessions { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+
     }
 }
