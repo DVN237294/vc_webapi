@@ -28,7 +28,7 @@ namespace vc_webapi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateComment([FromBody] Comment comment)
+        public async Task<IActionResult> CreateComment([FromBody] Comment comment, long id)
         {
             if (!ModelState.IsValid)
             {
@@ -36,23 +36,26 @@ namespace vc_webapi.Controllers
             }
             User user = await this.User(db);
 
-            var video = await db.Videos.FindAsync(comment.Video);
+            var video = await db.Videos.FindAsync(id);
 
             if (user != null)
             {
-                db.Comments.Add(new Comment
+                if (video != null)
                 {
-                    UserName = user.UserName,
-                    CommentTime = DateTime.Now,
-                    Message = comment.Message,
-                    Video = video
+                    db.Comments.Add(new Comment
+                    {
+                        UserName = user.UserName,
+                        CommentTime = DateTime.Now,
+                        Message = comment.Message,
+                        VideoId = video.Id
 
-                }) ;
-                await db.SaveChangesAsync();
-                return Ok();
+                    });
+                    await db.SaveChangesAsync();
+                    return Ok();
+                }
             }
-            return Unauthorized();
-        }
+                return Unauthorized();
+            }
 
         [HttpGet("{id}")]
         public async Task<ActionResult> GetComments(long id)
@@ -65,9 +68,33 @@ namespace vc_webapi.Controllers
             }
             return Ok(comments);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteVideo([FromRoute] long id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (await this.User(db) is Admin)
+            {
+                var comment = await db.Comments.FindAsync(id);
+                if (comment == null)
+                {
+                    return NotFound();
+                }
+
+                db.Comments.Remove(comment);
+                await db.SaveChangesAsync();
+
+                return Ok(comment);
+            }
+            return Unauthorized();
+        }
+
     }
 }
-
     
 
        

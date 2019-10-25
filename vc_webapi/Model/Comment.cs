@@ -12,7 +12,7 @@ namespace vc_webapi.Model
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public long Id { get; set; }
         [NotMapped]
         public string UserName {get; set;}
         [JsonIgnore]
