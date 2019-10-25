@@ -70,7 +70,7 @@ namespace vc_webapi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteVideo([FromRoute] long id)
+        public async Task<IActionResult> DeleteComment([FromRoute] long id)
         {
             if (!ModelState.IsValid)
             {

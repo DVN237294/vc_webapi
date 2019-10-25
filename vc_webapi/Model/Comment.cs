@@ -23,7 +23,6 @@ namespace vc_webapi.Model
         public Video Video { get; set; }
         [NotMapped]
         public long VideoId { get; set; }
-
         public string Message { get; set; }
         public DateTime CommentTime { get; set; }
     }
