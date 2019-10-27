@@ -14,6 +14,7 @@ namespace vc_webapi.Model
         public long Id { get; set; }
         public string URL { get; set; }
         public long Duration { get; set; }
+        public List<Comment> Comments { get; set; }
         public string Name { get; set; }
         public string ThumbnailURL { get; set; }
         public DateTime RecordTimeUtc { get; set; }

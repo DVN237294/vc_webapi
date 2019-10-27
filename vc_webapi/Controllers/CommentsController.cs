@@ -44,29 +44,38 @@ namespace vc_webapi.Controllers
                 {
                     db.Comments.Add(new Comment
                     {
-                        UserName = user.UserName,
+                        User = user,
                         CommentTime = DateTime.Now,
                         Message = comment.Message,
-                        VideoId = video.Id
+                        Video = video
 
                     });
                     await db.SaveChangesAsync();
                     return Ok();
                 }
             }
-                return Unauthorized();
-            }
+            return Unauthorized();
+        }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetComments(long id)
+        public async Task<ActionResult<IEnumerable<Comment>>> GetCommentsFromAVideo([FromRoute] long id)
         {
-            var comments = await db.Comments.FindAsync(id);
+            var video = await db.Videos.FindAsync(id);
 
-            if (comments == null)
+            if (video == null)
             {
                 return NotFound();
             }
-            return Ok(comments);
+            var commentsFromVideo = video.Comments;
+
+            return commentsFromVideo;
+
+        }
+
+        [HttpGet]
+        public IEnumerable<Comment> GetComments()
+        {                
+            return db.Comments;
         }
 
         [HttpDelete("{id}")]
