@@ -66,9 +66,13 @@ namespace vc_webapi.Controllers
             {
                 return NotFound();
             }
-            var commentsFromVideo = video.Comments;
 
-            return commentsFromVideo;
+            if (video != null)
+            {
+                var commentsFromVideo = db.Comments.Where(i => i.VideoId == id);
+                return await commentsFromVideo.ToListAsync();
+            }
+            return Unauthorized();
 
         }
 
