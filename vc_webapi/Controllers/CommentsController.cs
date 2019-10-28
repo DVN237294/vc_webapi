@@ -45,6 +45,7 @@ namespace vc_webapi.Controllers
                     db.Comments.Add(new Comment
                     {
                         User = user,
+                        UserName = user.UserName,
                         CommentTime = DateTime.Now,
                         Message = comment.Message,
                         Video = video
@@ -69,7 +70,7 @@ namespace vc_webapi.Controllers
 
             if (video != null)
             {
-                var commentsFromVideo = db.Comments.Where(i => i.VideoId == id);
+                var commentsFromVideo = db.Comments.Where(i => i.Video.Id == id);
                 return await commentsFromVideo.ToListAsync();
             }
             return Unauthorized();

@@ -13,7 +13,6 @@ namespace vc_webapi.Model
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
-        [NotMapped]
         public string UserName {get; set;}
         [JsonIgnore]
         [System.Text.Json.Serialization.JsonIgnore]
@@ -21,8 +20,6 @@ namespace vc_webapi.Model
         [JsonIgnore]
         [System.Text.Json.Serialization.JsonIgnore]
         public Video Video { get; set; }
-        [NotMapped]
-        public long VideoId { get; set; }
         public string Message { get; set; }
         public DateTime CommentTime { get; set; }
     }
