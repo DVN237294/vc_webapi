@@ -28,7 +28,7 @@ namespace vc_webapi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateComment([FromBody] Comment comment, long id)
+        public async Task<IActionResult> CreateComment([FromBody] string message, long id)
         {
             if (!ModelState.IsValid)
             {
@@ -47,7 +47,7 @@ namespace vc_webapi.Controllers
                         User = user,
                         UserName = user.UserName,
                         CommentTime = DateTime.Now,
-                        Message = comment.Message,
+                        Message = message,
                         Video = video
 
                     });
