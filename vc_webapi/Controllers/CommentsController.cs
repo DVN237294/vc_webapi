@@ -28,15 +28,15 @@ namespace vc_webapi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateComment([FromBody] string message, long id)
+        public async Task<IActionResult> CreateComment([FromRoute] long id, string message)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            User user = await this.User(db);
-
             var video = await db.Videos.FindAsync(id);
+
+            User user = await this.User(db);
 
             if (user != null)
             {
