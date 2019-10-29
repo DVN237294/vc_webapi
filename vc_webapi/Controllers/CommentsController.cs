@@ -28,13 +28,13 @@ namespace vc_webapi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateComment(string message, long id)
+        public async Task<IActionResult> CreateComment(string message, long videoId)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var video = await db.Videos.FindAsync(id);
+            var video = await db.Videos.FindAsync(videoId);
 
             User user = await this.User(db);
 
@@ -46,7 +46,7 @@ namespace vc_webapi.Controllers
                     {
                         User = user,
                         UserName = user.UserName,
-                        CommentTime = DateTime.Now,
+                        CommentTime = DateTime.UtcNow,
                         Message = message,
                         Video = video
 
@@ -55,34 +55,29 @@ namespace vc_webapi.Controllers
                     return Ok();
                 }
             }
-            return Unauthorized();
+            return BadRequest();
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Comment>>> GetCommentsFromAVideo([FromRoute] long id)
+        [HttpGet("{videoId}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<Comment>>> GetCommentsFromAVideo([FromRoute] long videoId)
         {
-            var video = await db.Videos.FindAsync(id);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var video = await db.Videos.FindAsync(videoId);
 
             if (video == null)
             {
                 return NotFound();
             }
 
-            if (video != null)
-            {
-                var commentsFromVideo = db.Comments.Where(i => i.Video.Id == id);
-                return await commentsFromVideo.ToListAsync();
+            var commentsFromVideo = db.Comments.Where(i => i.Video.Id == videoId);
+            return await commentsFromVideo.ToListAsync();
             }
-            return Unauthorized();
-
-        }
-
-        [HttpGet]
-        public IEnumerable<Comment> GetComments()
-        {                
-            return db.Comments;
-        }
-
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteComment([FromRoute] long id)
         {
