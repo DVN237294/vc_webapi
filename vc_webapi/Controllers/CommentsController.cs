@@ -45,6 +45,7 @@ namespace vc_webapi.Controllers
                     db.Comments.Add(new Comment
                     {
                         User = user,
+                        UserName = user.UserName,
                         CommentTime = DateTime.Now,
                         Message = message,
                         Video = video
