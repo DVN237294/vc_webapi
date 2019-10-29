@@ -34,7 +34,7 @@ namespace vc_webapi.Controllers
             User user = await this.User(db);
             if (user != null)
             {
-                var query = db.Enrollments.Where(enrol => enrol.User.UserName == user.UserName)
+                IQueryable<Enrollment> query = db.Enrollments.Where(enrol => enrol.User.UserName == user.UserName)
                     .Include(enrollment => enrollment.Course)
                         .If(includeSessions, q2 => q2.ThenInclude(course => course.Sessions));
 

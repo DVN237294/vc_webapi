@@ -19,6 +19,37 @@ namespace vc_webapi.Migrations
                 .HasAnnotation("ProductVersion", "3.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            modelBuilder.Entity("vc_webapi.Model.Comment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("CommentTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("VideoId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("VideoId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("vc_webapi.Model.Course", b =>
                 {
                     b.Property<long>("Id")
@@ -426,6 +457,17 @@ namespace vc_webapi.Migrations
                     b.HasBaseType("vc_webapi.Model.User");
 
                     b.HasDiscriminator().HasValue("Admin");
+                });
+
+            modelBuilder.Entity("vc_webapi.Model.Comment", b =>
+                {
+                    b.HasOne("vc_webapi.Model.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId");
+
+                    b.HasOne("vc_webapi.Model.Video", "Video")
+                        .WithMany("Comments")
+                        .HasForeignKey("VideoId");
                 });
 
             modelBuilder.Entity("vc_webapi.Model.Enrollment", b =>
