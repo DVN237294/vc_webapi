@@ -28,7 +28,7 @@ namespace vc_webapi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateComment([FromRoute] long id, string message)
+        public async Task<IActionResult> CreateComment(string message, long id)
         {
             if (!ModelState.IsValid)
             {
