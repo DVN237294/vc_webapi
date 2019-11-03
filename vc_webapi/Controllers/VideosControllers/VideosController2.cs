@@ -25,11 +25,11 @@ namespace vc_webapi.Controllers
             db = context;
         }
 
-        [HttpGet("{name}")]
+        [HttpGet]
         [AllowAnonymous]
         public IEnumerable<Video> GetVideosFromName(string name)
         {
-            if (name is null)
+            if (name == null)
             {
                 return db.Videos;
             }
