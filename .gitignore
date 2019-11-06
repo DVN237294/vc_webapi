@@ -338,3 +338,8 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
+#Videostore data
+
+vc_webapi/vc_videostore/*.*
+!vc_webapi/vc_videostore/testvideo.mp4
