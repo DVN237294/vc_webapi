@@ -19,6 +19,8 @@ using System.Text;
 using vc_webapi.Helpers;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Identity;
+using vc_webapi.Services;
+using vc_webapi.SwashbuckleFilters;
 
 namespace vc_webapi
 {
@@ -75,6 +77,8 @@ namespace vc_webapi
                         new string[] { }
                     }
                 });
+                c.OperationFilter<BinaryPayloadFilter>();
+                c.OperationFilter<RequestEncodingContentTypeFilter>();
             });
 
             var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("39e9fab8f48f2b49d070b7aa135230a97d1b2a4e02aa153965f50c0880596bad"));
@@ -95,6 +99,8 @@ namespace vc_webapi
                     ValidateAudience = false
                 };
             });
+
+            services.AddScoped<VideoStoreService>();
 
         }
 
@@ -118,7 +124,7 @@ namespace vc_webapi
 
             app.UseCors(opts =>
             {
-                opts.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+                opts.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
             });
 
             //Enable swagger (doc generation and UI)

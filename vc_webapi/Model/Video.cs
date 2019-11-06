@@ -12,11 +12,14 @@ namespace vc_webapi.Model
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
-        public string URL { get; set; }
-        public long Duration { get; set; }
+        [Required]
+        public VideoProperties Properties { get; set; }
         public ICollection<Comment> Comments { get; set; }
+        [Required]
         public string Name { get; set; }
         public string ThumbnailURL { get; set; }
+        [Required]
         public DateTime RecordTimeUtc { get; set; }
+        public string StreamUrl { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using vc_webapi.Controllers;
 using vc_webapi.Model;
 using vc_webapi.Model.Users;
 
@@ -19,6 +20,7 @@ namespace vc_webapi.Data
         public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<VideoProperties> VideoProperties { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -49,6 +51,19 @@ namespace vc_webapi.Data
             };
             builder.Entity<Student>().HasData(testStudent);
 
+
+            builder.Entity<VideoProperties>().HasData(new VideoProperties
+            {
+                Id = 100L,
+                ContainerExt = "mp4",
+                Duration = 10000L,
+                FileSize = 788493L,
+                Height = 176,
+                Width = 320,
+                MimeType = "video/mp4",
+                VirtualFilePath = "testvideo.mp4"
+            });
+
             var sdjSession1 = new object[]
             {
                  new
@@ -56,40 +71,44 @@ namespace vc_webapi.Data
                      Id = 100L,
                      RecordTimeUtc = DateTime.UtcNow,
                      ThumbnailURL = "/assets/video.jpeg",
-                     URL = "/assets/testvideo.mp4",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}100",
                      Name = "SDJ Lesson 1",
                      Duration = 10L,
-                     SessionId = 100L
+                     SessionId = 100L,
+                     PropertiesId = 100L
                  },
                  new
                  {
                      Id = 101L,
                      RecordTimeUtc = DateTime.UtcNow + TimeSpan.FromMinutes(45),
                      ThumbnailURL = "/assets/video.jpeg",
-                     URL = "/assets/testvideo.mp4",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}101",
                      Name = "SDJ Lesson 1 part 2",
                      Duration = 10L,
-                     SessionId = 100L
+                     SessionId = 100L,
+                     PropertiesId = 100L
                  },
                  new
                  {
                      Id = 102L,
                      RecordTimeUtc = DateTime.UtcNow + TimeSpan.FromMinutes(90),
                      ThumbnailURL = "/assets/video.jpeg",
-                     URL = "/assets/testvideo.mp4",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}102",
                      Name = "SDJ Lesson 1 part 3",
                      Duration = 10L,
-                     SessionId = 100L
+                     SessionId = 100L,
+                     PropertiesId = 100L
                  },
                  new
                  {
                      Id = 103L,
                      RecordTimeUtc = DateTime.UtcNow + TimeSpan.FromMinutes(145),
                      ThumbnailURL = "/assets/video.jpeg",
-                     URL = "/assets/testvideo.mp4",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}103",
                      Name = "SDJ Lesson 1 part 4",
                      Duration = 10L,
-                     SessionId = 100L
+                     SessionId = 100L,
+                     PropertiesId = 100L
                  }
              };
             var sdjSession2 = new object[]
@@ -99,40 +118,44 @@ namespace vc_webapi.Data
                      Id = 104L,
                      RecordTimeUtc = DateTime.UtcNow + TimeSpan.FromDays(7),
                      ThumbnailURL = "/assets/video.jpeg",
-                     URL = "/assets/testvideo.mp4",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}104",
                      Name = "SDJ Lesson 2",
                      Duration = 10L,
-                     SessionId = 101L
+                     SessionId = 101L,
+                     PropertiesId = 100L
                  },
                  new
                  {
                      Id = 105L,
                      RecordTimeUtc = DateTime.UtcNow + TimeSpan.FromDays(7) + TimeSpan.FromMinutes(45),
                      ThumbnailURL = "/assets/video.jpeg",
-                     URL = "/assets/testvideo.mp4",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}105",
                      Name = "SDJ Lesson 2 part 2",
                      Duration = 10L,
-                     SessionId = 101L
+                     SessionId = 101L,
+                     PropertiesId = 100L
                  },
                  new
                  {
                      Id = 106L,
                      RecordTimeUtc = DateTime.UtcNow + TimeSpan.FromDays(7) + TimeSpan.FromMinutes(90),
                      ThumbnailURL = "/assets/video.jpeg",
-                     URL = "/assets/testvideo.mp4",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}106",
                      Name = "SDJ Lesson 2 part 3",
                      Duration = 10L,
-                     SessionId = 101L
+                     SessionId = 101L,
+                     PropertiesId = 100L
                  },
                  new
                  {
                      Id = 107L,
                      RecordTimeUtc = DateTime.UtcNow + TimeSpan.FromDays(7) + TimeSpan.FromMinutes(145),
                      ThumbnailURL = "/assets/video.jpeg",
-                     URL = "/assets/testvideo.mp4",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}107",
                      Name = "SDJ Lesson 2 part 3",
                      Duration = 10L,
-                     SessionId = 101L
+                     SessionId = 101L,
+                     PropertiesId = 100L
                  }
             };
             var sdjSessions = new object[]
@@ -162,40 +185,44 @@ namespace vc_webapi.Data
                      Id = 108L,
                      RecordTimeUtc = DateTime.UtcNow + TimeSpan.FromDays(1),
                      ThumbnailURL = "/assets/video.jpeg",
-                     URL = "/assets/testvideo.mp4",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}108",
                      Name = "AJP Lesson 1",
                      Duration = 10L,
-                     SessionId = 102L
+                     SessionId = 102L,
+                     PropertiesId = 100L
                  },
                  new
                  {
                      Id = 109L,
                      RecordTimeUtc = DateTime.UtcNow + TimeSpan.FromDays(1) + TimeSpan.FromMinutes(45),
                      ThumbnailURL = "/assets/video.jpeg",
-                     URL = "/assets/testvideo.mp4",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}109",
                      Name = "AJP Lesson 1 part 2",
                      Duration = 10L,
-                     SessionId = 102L
+                     SessionId = 102L,
+                     PropertiesId = 100L
                  },
                  new
                  {
                      Id = 110L,
                      RecordTimeUtc = DateTime.UtcNow + TimeSpan.FromDays(1) + TimeSpan.FromMinutes(90),
                      ThumbnailURL = "/assets/video.jpeg",
-                     URL = "/assets/testvideo.mp4",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}110",
                      Name = "AJP Lesson 1 part 3",
                      Duration = 10L,
-                     SessionId = 102L
+                     SessionId = 102L,
+                     PropertiesId = 100L
                  },
                  new
                  {
                      Id = 111L,
                      RecordTimeUtc = DateTime.UtcNow + TimeSpan.FromDays(1) + TimeSpan.FromMinutes(145),
                      ThumbnailURL = "/assets/video.jpeg",
-                     URL = "/assets/testvideo.mp4",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}111",
                      Name = "AJP Lesson 1 part 4",
                      Duration = 10L,
-                     SessionId = 102L
+                     SessionId = 102L,
+                     PropertiesId = 100L
                  }
              };
             var ajpSession2 = new object[]
@@ -205,40 +232,44 @@ namespace vc_webapi.Data
                      Id = 112L,
                      RecordTimeUtc = DateTime.UtcNow + TimeSpan.FromDays(8),
                      ThumbnailURL = "/assets/video.jpeg",
-                     URL = "/assets/testvideo.mp4",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}112",
                      Name = "AJP Lesson 2",
                      Duration = 10L,
-                     SessionId = 103L
+                     SessionId = 103L,
+                     PropertiesId = 100L
                  },
                  new
                  {
                      Id = 113L,
                      RecordTimeUtc = DateTime.UtcNow + TimeSpan.FromDays(8) + TimeSpan.FromMinutes(45),
                      ThumbnailURL = "/assets/video.jpeg",
-                     URL = "/assets/testvideo.mp4",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}113",
                      Name = "AJP Lesson 2 part 2",
                      Duration = 10L,
-                     SessionId = 103L
+                     SessionId = 103L,
+                     PropertiesId = 100L
                  },
                  new
                  {
                      Id = 114L,
                      RecordTimeUtc = DateTime.UtcNow + TimeSpan.FromDays(8) + TimeSpan.FromMinutes(90),
                      ThumbnailURL = "/assets/video.jpeg",
-                     URL = "/assets/testvideo.mp4",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}114",
                      Name = "AJP Lesson 2 part 3",
                      Duration = 10L,
-                     SessionId = 103L
+                     SessionId = 103L,
+                     PropertiesId = 100L
                  },
                  new
                  {
                      Id = 115L,
                      RecordTimeUtc = DateTime.UtcNow + TimeSpan.FromDays(8) + TimeSpan.FromMinutes(145),
                      ThumbnailURL = "/assets/video.jpeg",
-                     URL = "/assets/testvideo.mp4",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}115",
                      Name = "AJP Lesson 2 part 3",
                      Duration = 10L,
-                     SessionId = 103L
+                     SessionId = 103L,
+                     PropertiesId = 100L
                  }
             };
             var ajpSessions = new object[]
