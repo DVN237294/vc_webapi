@@ -44,7 +44,7 @@ namespace vc_webapi.Controllers
                             .ThenInclude(course => course.Sessions)
                                 .If(includeSessionRecordings, q3 => q3.ThenInclude(session => session.Recordings));
 
-                return await query.Take(limitEnrollments).ToListAsync();
+                return await query.OrderByDescending(s=>s.EnrollmentDateUtc).Take(limitEnrollments).ToListAsync();
             }
             return Unauthorized();
         }
