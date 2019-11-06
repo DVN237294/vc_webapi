@@ -32,7 +32,7 @@ namespace vc_webapi.Controllers
         {
             if (limit <= 0)
                 return db.Videos;
-            return db.Videos.Take(limit);
+            return db.Videos.OrderByDescending(v => v.RecordTimeUtc).Take(limit);
         }
 
         // GET: api/Videos/5
