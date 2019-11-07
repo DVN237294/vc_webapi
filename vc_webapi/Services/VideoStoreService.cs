@@ -68,7 +68,7 @@ namespace vc_webapi.Services
             return null;
         }
         public bool GetUploadModel(string token, out Video videoModel) => VideoUploadTokens.TryGetValue(token, out videoModel);
-        public Stream GetVideo(VideoProperties properties) => new FileStream(PhysicalFilePath(properties.VirtualFilePath), FileMode.Open, FileAccess.Read, FileShare.None, 4096, true);
+        public Stream GetVideo(VideoProperties properties) => new FileStream(PhysicalFilePath(properties.VirtualFilePath), FileMode.Open, FileAccess.Read, FileShare.Read, 4096, true);
         private string PhysicalFilePath(string virtualFilePath) => Path.Combine(this.VideoRoot, virtualFilePath);
     }
 }

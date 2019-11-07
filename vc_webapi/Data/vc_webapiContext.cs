@@ -152,7 +152,7 @@ namespace vc_webapi.Data
                      RecordTimeUtc = DateTime.UtcNow + TimeSpan.FromDays(7) + TimeSpan.FromMinutes(145),
                      ThumbnailURL = "/assets/video.jpeg",
                      StreamUrl = $"{VideostreamController.StreamBaseUrl}107",
-                     Name = "SDJ Lesson 2 part 3",
+                     Name = "SDJ Lesson 2 part 4",
                      Duration = 10L,
                      SessionId = 101L,
                      PropertiesId = 100L
@@ -266,7 +266,7 @@ namespace vc_webapi.Data
                      RecordTimeUtc = DateTime.UtcNow + TimeSpan.FromDays(8) + TimeSpan.FromMinutes(145),
                      ThumbnailURL = "/assets/video.jpeg",
                      StreamUrl = $"{VideostreamController.StreamBaseUrl}115",
-                     Name = "AJP Lesson 2 part 3",
+                     Name = "AJP Lesson 2 part 4",
                      Duration = 10L,
                      SessionId = 103L,
                      PropertiesId = 100L
