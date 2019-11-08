@@ -109,7 +109,7 @@ namespace vc_webapi.Controllers
                     {
                         db.Videos.Add(video);
                         await db.SaveChangesAsync(); //Save and get Id
-                        video.StreamUrl += $"{StreamBaseUrl}{video.Id}";
+                        video.StreamUrl = $"{StreamBaseUrl}{video.Id}";
                         await db.SaveChangesAsync(); //Update URL with Id
                         return Ok(video);
                     }
