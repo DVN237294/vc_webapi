@@ -37,6 +37,7 @@ namespace vc_webapi.Controllers
 
         // GET: api/Videos/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetVideo([FromRoute] long id)
         {
             if (!ModelState.IsValid)
