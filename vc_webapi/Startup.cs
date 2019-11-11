@@ -100,7 +100,7 @@ namespace vc_webapi
                 };
             });
 
-            services.AddScoped<VideoStoreService>();
+            services.AddSingleton<VideoStoreService>();
 
         }
 
