@@ -28,7 +28,7 @@ namespace vc_webapi.Controllers
         }
 
         [HttpGet]
-        [Route("{roomName}")]
+        [Route("ForRoom/{roomName}")]
         [ProducesResponseType(typeof(RoomRecordingSchedule), 200)]
         public async Task<IActionResult> GetRoomSchedule([FromRoute] string roomName, [FromQuery] DateTime startUtc = default, [FromQuery] DateTime endUtc = default)
         {
@@ -63,7 +63,7 @@ namespace vc_webapi.Controllers
         }
 
         [HttpGet]
-        [Route("Room")]
+        [Route("GetRooms")]
         [ProducesResponseType(typeof(ICollection<Room>), 200)]
         public async Task<IActionResult> GetRooms([FromQuery] int limit = 0)
         {
