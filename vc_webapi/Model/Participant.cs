@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace vc_webapi.Model
 {
-    public class UserSession
+    public class Participant
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
+        public long Id { get; internal set; }
         public long UserId { get; set; }
         public User User { get; set; }
         public long SessionId { get; set; }

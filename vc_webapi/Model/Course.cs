@@ -11,8 +11,12 @@ namespace vc_webapi.Model
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
+        public long Id { get; internal set; }
+        public long WebuntisCourseId { get; set; }
         public string Name { get; set; }
         public ICollection<Session> Sessions { get; set; }
+        [Newtonsoft.Json.JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
+        public ICollection<ScheduledSession> ScheduledSessions { get; set; }
     }
 }

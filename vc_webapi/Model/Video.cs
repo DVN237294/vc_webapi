@@ -11,7 +11,7 @@ namespace vc_webapi.Model
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
+        public long Id { get; internal set; }
         [Required]
         public VideoProperties Properties { get; set; }
         public ICollection<Comment> Comments { get; set; }
