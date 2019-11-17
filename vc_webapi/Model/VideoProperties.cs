@@ -12,9 +12,7 @@ namespace vc_webapi.Model
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [JsonIgnore]
-        [Newtonsoft.Json.JsonIgnore]
-        public long Id { get; set; }
+        public long Id { get; internal set; }
         public int Width { get; set; }
         public int Height { get; set; }
         public string VirtualFilePath { get; set; }

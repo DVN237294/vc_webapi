@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using vc_webapi.Attributes;
 using vc_webapi.Data;
 using vc_webapi.Helpers;
@@ -21,15 +17,14 @@ namespace vc_webapi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class VideostreamController : ControllerBase
     {
         public static string StreamBaseUrl { get; } = "/api/Videostream/";
-        private readonly ILogger<VideostreamController> logger;
         private readonly VideoStoreService videoStore;
         private readonly Vc_webapiContext db;
-        public VideostreamController(ILogger<VideostreamController> logger, VideoStoreService videoStore, Vc_webapiContext db)
+        public VideostreamController(VideoStoreService videoStore, Vc_webapiContext db)
         {
-            this.logger = logger;
             this.videoStore = videoStore;
             this.db = db;
         }
@@ -37,6 +32,7 @@ namespace vc_webapi.Controllers
         [ProducesResponseType(typeof(FileStreamResult), 200)]
         [Produces("application/octet-stream")]
         [HttpGet("{videoId}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetVideo([FromRoute] long videoId)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -49,7 +45,6 @@ namespace vc_webapi.Controllers
             return File(fileStream, video.Properties.MimeType, $"{video.Name}.{video.Properties.ContainerExt}", true);
         }
 
-        [Authorize]
         [HttpPost]
         [ProducesResponseType(typeof(UlTokenModel), 200)]
         public async Task<IActionResult> PostVideoProperties([FromBody] Video video)
@@ -67,7 +62,6 @@ namespace vc_webapi.Controllers
             return Unauthorized();
         }
 
-        [Authorize]
         [HttpPost("{ulToken}")]
         [Consumes("multipart/form-data")]
         [RequestFormLimits(MultipartBodyLengthLimit = long.MaxValue)]
@@ -83,7 +77,6 @@ namespace vc_webapi.Controllers
             return await HandleVideoUpload(ulToken, vid.OpenReadStream(), vid.Length);
         }
 
-        [Authorize]
         [HttpPost("{ulToken}/body")]
         [Consumes("application/octet-stream")]
         [BinaryPayload]

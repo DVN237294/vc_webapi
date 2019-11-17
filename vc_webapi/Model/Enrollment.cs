@@ -11,7 +11,7 @@ namespace vc_webapi.Model
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
+        public long Id { get; internal set; }
         public User User { get; set; }
         public Course Course { get; set; }
         public DateTime EnrollmentDateUtc { get; set; }
