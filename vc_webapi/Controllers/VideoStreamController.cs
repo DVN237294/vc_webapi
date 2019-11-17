@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using vc_webapi.Attributes;
 using vc_webapi.Data;
 using vc_webapi.Helpers;
