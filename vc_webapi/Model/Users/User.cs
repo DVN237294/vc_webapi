@@ -19,7 +19,7 @@ namespace vc_webapi.Model
         public Boolean isTeacher { get; set; }
         [Newtonsoft.Json.JsonIgnore]
         [System.Text.Json.Serialization.JsonIgnore]
-        public ICollection<UserSession> Sessions { get; set; }
+        public ICollection<Participant> DbParticipants { get; set; }
         public ICollection<Comment> Comments { get; set; }
 
     }

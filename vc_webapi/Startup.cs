@@ -56,7 +56,7 @@ namespace vc_webapi
                     {
                         Email = "237294@via.dk",
                         Name = "David V. Nielsen"
-                    }
+                    },
                 });
                 c.AddSecurityDefinition("bearer", new OpenApiSecurityScheme()
                 {
@@ -79,6 +79,7 @@ namespace vc_webapi
                 });
                 c.OperationFilter<BinaryPayloadFilter>();
                 c.OperationFilter<RequestEncodingContentTypeFilter>();
+                c.SchemaFilter<ReadOnlyPropertyFilter>();
             });
 
             var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("39e9fab8f48f2b49d070b7aa135230a97d1b2a4e02aa153965f50c0880596bad"));
@@ -100,7 +101,7 @@ namespace vc_webapi
                 };
             });
 
-            services.AddScoped<VideoStoreService>();
+            services.AddSingleton<VideoStoreService>();
 
         }
 
@@ -127,8 +128,15 @@ namespace vc_webapi
                 opts.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
             });
 
-            //Enable swagger (doc generation and UI)
-            app.UseSwagger();
+            //Enable swagger (doc generation)
+            app.UseSwagger(c =>
+            {
+                c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
+                {
+                    string url = $"{httpReq.Scheme}://{httpReq.Host.Value}";
+                    swaggerDoc.Servers = new List<OpenApiServer> { new OpenApiServer { Url = url } };
+                });
+            });
 
             //Enable swagger UI
             app.UseSwaggerUI(c =>
@@ -136,7 +144,7 @@ namespace vc_webapi
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "vc_webapi v1");
             });
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 

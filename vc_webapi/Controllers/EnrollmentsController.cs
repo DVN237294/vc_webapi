@@ -39,7 +39,7 @@ namespace vc_webapi.Controllers
                         .If(includeSessions, q2 => q2.ThenInclude(course => course.Sessions));
 
                 if(query is IIncludableQueryable<Enrollment, ICollection<Session>> subQuery)
-                    query = subQuery.If(includeSessionParticipants, q22 => q22.ThenInclude(a => a.UserSessions).ThenInclude(e => e.User))
+                    query = subQuery.If(includeSessionParticipants, q22 => q22.ThenInclude(a => a.DbParticipants).ThenInclude(e => e.User))
                         .Include(enrollment => enrollment.Course)
                             .ThenInclude(course => course.Sessions)
                                 .If(includeSessionRecordings, q3 => q3.ThenInclude(session => session.Recordings));

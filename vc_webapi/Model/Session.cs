@@ -12,21 +12,21 @@ namespace vc_webapi.Model
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
+        public long Id { get; internal set; }
         public DateTime Date { get; set; }
         public ICollection<Video> Recordings { get; set; }
         [JsonIgnore]
         [System.Text.Json.Serialization.JsonIgnore]
-        public ICollection<UserSession> UserSessions { get; set; } = new List<UserSession>();
+        public ICollection<Participant> DbParticipants { get; set; } = new List<Participant>();
         [NotMapped]
         public IEnumerable<User> Participants
         {
-            get => UserSessions.Count > 0 ? UserSessions.Select(us => us.User) : null;
+            get => DbParticipants.Count > 0 ? DbParticipants.Select(us => us.User) : null;
             set
             {
                 foreach(var u in value)
                 {
-                    UserSessions.Add(new UserSession
+                    DbParticipants.Add(new Participant
                     {
                         Session = this,
                         User = u

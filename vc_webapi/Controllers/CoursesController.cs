@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using vc_webapi.Data;
 using vc_webapi.Helpers;
 using vc_webapi.Model;
@@ -31,7 +30,7 @@ namespace vc_webapi.Controllers
         {
             var query = db.Courses
                 .If(includeSessions, q => q.Include(e => e.Sessions)
-                    .If(includeSessionParticipants, q2 => q2.ThenInclude(e => e.UserSessions).ThenInclude(e => e.User))
+                    .If(includeSessionParticipants, q2 => q2.ThenInclude(e => e.DbParticipants).ThenInclude(e => e.User))
                 .If(includeSessions, q => q.Include(e => e.Sessions)
                     .If(includeSessionRecordings, q2 => q2.ThenInclude(e => e.Recordings))));
 
@@ -48,7 +47,7 @@ namespace vc_webapi.Controllers
 
             var course = await db.Courses
                 .If(includeSessions, q => q.Include(e => e.Sessions)
-                    .If(includeSessionParticipants, q2 => q2.ThenInclude(e => e.UserSessions).ThenInclude(e => e.User))
+                    .If(includeSessionParticipants, q2 => q2.ThenInclude(e => e.DbParticipants).ThenInclude(e => e.User))
                 .If(includeSessions, q => q.Include(e => e.Sessions)
                     .If(includeSessionRecordings, q2 => q2.ThenInclude(e => e.Recordings))))
                 .SingleOrDefaultAsync(c => c.Id == id);
@@ -62,8 +61,31 @@ namespace vc_webapi.Controllers
         }
 
         [HttpPost]
-        [Route("CreateCourse")]
-        public async Task<IActionResult> CreateCourse([FromBody] Course course)
+        [Route("AddRange")]
+        [ProducesResponseType(typeof(int), 200)]
+        public async Task<IActionResult> AddRange([FromBody] ICollection<Course> courses)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (await this.User(db) is Admin)
+            {
+                var entitiesExist = await db.Courses.Where(c => courses.Select(c2 => c2.WebuntisCourseId).Contains(c.WebuntisCourseId)).ToDictionaryAsync(c => c.WebuntisCourseId, c => c);
+                var toAdd = courses.Where(c => !entitiesExist.TryGetValue(c.WebuntisCourseId, out Course _)).ToList();
+
+                db.Courses.AddRange(toAdd);
+                await db.SaveChangesAsync();
+
+                int added = toAdd.Count();
+                return Ok(added);
+            }
+            return Unauthorized();
+        }
+
+        [HttpPost]
+        [Route("Add")]
+        public async Task<IActionResult> Add([FromBody] Course course)
         {
             if (!ModelState.IsValid)
             {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -18,9 +19,14 @@ namespace vc_webapi.Services
         private readonly string VideoRoot;
         private static readonly ConcurrentDictionary<string, Video> VideoUploadTokens = new ConcurrentDictionary<string, Video>();
         private readonly TimeSpan UPLOAD_TIMEOUT = TimeSpan.FromMinutes(10);
-        public VideoStoreService(IWebHostEnvironment env)
+        public VideoStoreService(IWebHostEnvironment env, IConfiguration configuration)
         {
-            this.VideoRoot = Path.Combine(env.ContentRootPath, "vc_videostore");
+            string storeRoot = configuration["VideoStoreRoot"];
+            if (string.IsNullOrWhiteSpace(storeRoot))
+                this.VideoRoot = Path.Combine(env.ContentRootPath, "vc_videostore");
+            else
+                this.VideoRoot = Environment.ExpandEnvironmentVariables(storeRoot);
+
             if (!Directory.Exists(VideoRoot))
                 Directory.CreateDirectory(VideoRoot);
         }
