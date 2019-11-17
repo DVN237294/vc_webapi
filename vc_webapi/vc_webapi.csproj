@@ -15,6 +15,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20191028183919_Add-comments.cs" />
     <Compile Remove="Migrations\20191028183919_Add-comments.Designer.cs" />
+    <Compile Remove="Migrations\20191110142912_createTables.cs" />
+    <Compile Remove="Migrations\20191110142912_createTables.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

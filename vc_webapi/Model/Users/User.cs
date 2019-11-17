@@ -16,6 +16,7 @@ namespace vc_webapi.Model
         public string UserName { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
+        public Boolean isTeacher { get; set; }
         [Newtonsoft.Json.JsonIgnore]
         [System.Text.Json.Serialization.JsonIgnore]
         public ICollection<UserSession> Sessions { get; set; }
