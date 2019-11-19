@@ -329,6 +329,9 @@ namespace vc_webapi.Migrations
                     b.Property<string>("UserName")
                         .HasColumnType("text");
 
+                    b.Property<bool>("isTeacher")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserName")
@@ -596,7 +599,8 @@ namespace vc_webapi.Migrations
                             Id = 9223372036854775807L,
                             Email = "some@mail.com",
                             FullName = "BPR Test Student",
-                            UserName = "teststudent"
+                            UserName = "teststudent",
+                            isTeacher = false
                         });
                 });
 
