@@ -66,6 +66,7 @@ namespace vc_webapi.Controllers
                     UserName = user.UserName, //correlation
                     Email = userModel.Email,
                     FullName = userModel.FullName,
+                    isTeacher = false,
                 });
                 await modelDb.SaveChangesAsync();
             }
