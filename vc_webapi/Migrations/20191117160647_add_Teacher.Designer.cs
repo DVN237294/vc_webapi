@@ -10,8 +10,8 @@ using vc_webapi.Data;
 namespace vc_webapi.Migrations
 {
     [DbContext(typeof(Vc_webapiContext))]
-    [Migration("20191111203256_addTeacher")]
-    partial class addTeacher
+    [Migration("20191117160647_add_Teacher")]
+    partial class add_Teacher
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -62,6 +62,9 @@ namespace vc_webapi.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.Property<long>("WebuntisCourseId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
 
                     b.ToTable("Courses");
@@ -69,13 +72,15 @@ namespace vc_webapi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 100L,
-                            Name = "SDJ1"
+                            Id = 9223372036854775807L,
+                            Name = "SDJ1",
+                            WebuntisCourseId = 9223372036854775807L
                         },
                         new
                         {
-                            Id = 101L,
-                            Name = "AJP1"
+                            Id = 9223372036854775806L,
+                            Name = "AJP1",
+                            WebuntisCourseId = 9223372036854775806L
                         });
                 });
 
@@ -106,18 +111,158 @@ namespace vc_webapi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 100L,
-                            CourseId = 100L,
-                            EnrollmentDateUtc = new DateTime(2019, 8, 13, 20, 32, 55, 190, DateTimeKind.Utc).AddTicks(1966),
-                            UserId = 100L
+                            Id = 9223372036854775807L,
+                            CourseId = 9223372036854775807L,
+                            EnrollmentDateUtc = new DateTime(2019, 8, 25, 1, 48, 40, 606, DateTimeKind.Utc),
+                            UserId = 9223372036854775807L
                         },
                         new
                         {
-                            Id = 101L,
-                            CourseId = 101L,
-                            EnrollmentDateUtc = new DateTime(2019, 8, 13, 20, 32, 55, 190, DateTimeKind.Utc).AddTicks(3440),
-                            UserId = 100L
+                            Id = 9223372036854775806L,
+                            CourseId = 9223372036854775806L,
+                            EnrollmentDateUtc = new DateTime(2019, 8, 25, 1, 48, 40, 606, DateTimeKind.Utc),
+                            UserId = 9223372036854775807L
                         });
+                });
+
+            modelBuilder.Entity("vc_webapi.Model.Participant", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<long>("SessionId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SessionId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Participant");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 9223372036854775807L,
+                            SessionId = 9223372036854775807L,
+                            UserId = 9223372036854775807L
+                        },
+                        new
+                        {
+                            Id = 9223372036854775806L,
+                            SessionId = 9223372036854775806L,
+                            UserId = 9223372036854775807L
+                        },
+                        new
+                        {
+                            Id = 9223372036854775805L,
+                            SessionId = 9223372036854775805L,
+                            UserId = 9223372036854775807L
+                        },
+                        new
+                        {
+                            Id = 9223372036854775804L,
+                            SessionId = 9223372036854775804L,
+                            UserId = 9223372036854775807L
+                        });
+                });
+
+            modelBuilder.Entity("vc_webapi.Model.Room", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<long>("WebuntisId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Rooms");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 9223372036854775807L,
+                            Name = "F.301a UV",
+                            WebuntisId = 1319L
+                        },
+                        new
+                        {
+                            Id = 9223372036854775806L,
+                            Name = "F.301b UV",
+                            WebuntisId = 1320L
+                        },
+                        new
+                        {
+                            Id = 9223372036854775805L,
+                            Name = "F.302a UV",
+                            WebuntisId = 1321L
+                        },
+                        new
+                        {
+                            Id = 9223372036854775804L,
+                            Name = "F.302b UV",
+                            WebuntisId = 1322L
+                        },
+                        new
+                        {
+                            Id = 9223372036854775803L,
+                            Name = "F.304 UV",
+                            WebuntisId = 1323L
+                        });
+                });
+
+            modelBuilder.Entity("vc_webapi.Model.ScheduledSession", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<long>("CourseId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<long>("RoomId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<long>("WebuntisCourseId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("WebuntisId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long[]>("WebuntisTeacherIds")
+                        .HasColumnType("bigint[]");
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("WebuntisId");
+
+                    b.HasIndex("RoomId");
+
+                    b.HasIndex("WebuntisCourseId");
+
+                    b.ToTable("ScheduledSessions");
                 });
 
             modelBuilder.Entity("vc_webapi.Model.Session", b =>
@@ -142,27 +287,27 @@ namespace vc_webapi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 100L,
-                            CourseId = 100L,
-                            Date = new DateTime(2019, 11, 11, 20, 32, 55, 189, DateTimeKind.Utc).AddTicks(6844)
+                            Id = 9223372036854775807L,
+                            CourseId = 9223372036854775807L,
+                            Date = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc)
                         },
                         new
                         {
-                            Id = 101L,
-                            CourseId = 100L,
-                            Date = new DateTime(2019, 11, 11, 20, 32, 55, 189, DateTimeKind.Utc).AddTicks(7942)
+                            Id = 9223372036854775806L,
+                            CourseId = 9223372036854775807L,
+                            Date = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc)
                         },
                         new
                         {
-                            Id = 102L,
-                            CourseId = 101L,
-                            Date = new DateTime(2019, 11, 11, 20, 32, 55, 190, DateTimeKind.Utc).AddTicks(132)
+                            Id = 9223372036854775805L,
+                            CourseId = 9223372036854775806L,
+                            Date = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc)
                         },
                         new
                         {
-                            Id = 103L,
-                            CourseId = 101L,
-                            Date = new DateTime(2019, 11, 11, 20, 32, 55, 190, DateTimeKind.Utc).AddTicks(132)
+                            Id = 9223372036854775804L,
+                            CourseId = 9223372036854775806L,
+                            Date = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc)
                         });
                 });
 
@@ -197,54 +342,6 @@ namespace vc_webapi.Migrations
                     b.ToTable("Users");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("User");
-                });
-
-            modelBuilder.Entity("vc_webapi.Model.UserSession", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<long>("SessionId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SessionId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserSession");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 100L,
-                            SessionId = 100L,
-                            UserId = 100L
-                        },
-                        new
-                        {
-                            Id = 101L,
-                            SessionId = 101L,
-                            UserId = 100L
-                        },
-                        new
-                        {
-                            Id = 102L,
-                            SessionId = 102L,
-                            UserId = 100L
-                        },
-                        new
-                        {
-                            Id = 103L,
-                            SessionId = 103L,
-                            UserId = 100L
-                        });
                 });
 
             modelBuilder.Entity("vc_webapi.Model.Video", b =>
@@ -284,161 +381,161 @@ namespace vc_webapi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 100L,
+                            Id = 9223372036854775807L,
                             Name = "SDJ Lesson 1",
-                            PropertiesId = 100L,
-                            RecordTimeUtc = new DateTime(2019, 11, 11, 20, 32, 55, 189, DateTimeKind.Utc).AddTicks(3180),
-                            SessionId = 100L,
+                            PropertiesId = 9223372036854775807L,
+                            RecordTimeUtc = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc),
+                            SessionId = 9223372036854775807L,
                             StreamUrl = "/api/Videostream/100",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 101L,
+                            Id = 9223372036854775806L,
                             Name = "SDJ Lesson 1 part 2",
-                            PropertiesId = 100L,
-                            RecordTimeUtc = new DateTime(2019, 11, 11, 21, 17, 55, 189, DateTimeKind.Utc).AddTicks(6481),
-                            SessionId = 100L,
+                            PropertiesId = 9223372036854775807L,
+                            RecordTimeUtc = new DateTime(2019, 11, 23, 2, 33, 40, 606, DateTimeKind.Utc),
+                            SessionId = 9223372036854775807L,
                             StreamUrl = "/api/Videostream/101",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 102L,
+                            Id = 9223372036854775805L,
                             Name = "SDJ Lesson 1 part 3",
-                            PropertiesId = 100L,
-                            RecordTimeUtc = new DateTime(2019, 11, 11, 22, 2, 55, 189, DateTimeKind.Utc).AddTicks(6748),
-                            SessionId = 100L,
+                            PropertiesId = 9223372036854775807L,
+                            RecordTimeUtc = new DateTime(2019, 11, 23, 3, 18, 40, 606, DateTimeKind.Utc),
+                            SessionId = 9223372036854775807L,
                             StreamUrl = "/api/Videostream/102",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 103L,
+                            Id = 9223372036854775804L,
                             Name = "SDJ Lesson 1 part 4",
-                            PropertiesId = 100L,
-                            RecordTimeUtc = new DateTime(2019, 11, 11, 22, 57, 55, 189, DateTimeKind.Utc).AddTicks(6752),
-                            SessionId = 100L,
+                            PropertiesId = 9223372036854775807L,
+                            RecordTimeUtc = new DateTime(2019, 11, 23, 4, 13, 40, 606, DateTimeKind.Utc),
+                            SessionId = 9223372036854775807L,
                             StreamUrl = "/api/Videostream/103",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 104L,
+                            Id = 9223372036854775803L,
                             Name = "SDJ Lesson 2",
-                            PropertiesId = 100L,
-                            RecordTimeUtc = new DateTime(2019, 11, 18, 20, 32, 55, 189, DateTimeKind.Utc).AddTicks(6755),
-                            SessionId = 101L,
+                            PropertiesId = 9223372036854775807L,
+                            RecordTimeUtc = new DateTime(2019, 11, 30, 1, 48, 40, 606, DateTimeKind.Utc),
+                            SessionId = 9223372036854775806L,
                             StreamUrl = "/api/Videostream/104",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 105L,
+                            Id = 9223372036854775802L,
                             Name = "SDJ Lesson 2 part 2",
-                            PropertiesId = 100L,
-                            RecordTimeUtc = new DateTime(2019, 11, 18, 21, 17, 55, 189, DateTimeKind.Utc).AddTicks(6772),
-                            SessionId = 101L,
+                            PropertiesId = 9223372036854775807L,
+                            RecordTimeUtc = new DateTime(2019, 11, 30, 2, 33, 40, 606, DateTimeKind.Utc),
+                            SessionId = 9223372036854775806L,
                             StreamUrl = "/api/Videostream/105",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 106L,
+                            Id = 9223372036854775801L,
                             Name = "SDJ Lesson 2 part 3",
-                            PropertiesId = 100L,
-                            RecordTimeUtc = new DateTime(2019, 11, 18, 22, 2, 55, 189, DateTimeKind.Utc).AddTicks(6776),
-                            SessionId = 101L,
+                            PropertiesId = 9223372036854775807L,
+                            RecordTimeUtc = new DateTime(2019, 11, 30, 3, 18, 40, 606, DateTimeKind.Utc),
+                            SessionId = 9223372036854775806L,
                             StreamUrl = "/api/Videostream/106",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 107L,
+                            Id = 9223372036854775800L,
                             Name = "SDJ Lesson 2 part 4",
-                            PropertiesId = 100L,
-                            RecordTimeUtc = new DateTime(2019, 11, 18, 22, 57, 55, 189, DateTimeKind.Utc).AddTicks(6841),
-                            SessionId = 101L,
+                            PropertiesId = 9223372036854775807L,
+                            RecordTimeUtc = new DateTime(2019, 11, 30, 4, 13, 40, 606, DateTimeKind.Utc),
+                            SessionId = 9223372036854775806L,
                             StreamUrl = "/api/Videostream/107",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 108L,
+                            Id = 9223372036854775799L,
                             Name = "AJP Lesson 1",
-                            PropertiesId = 100L,
-                            RecordTimeUtc = new DateTime(2019, 11, 12, 20, 32, 55, 190, DateTimeKind.Utc).AddTicks(111),
-                            SessionId = 102L,
+                            PropertiesId = 9223372036854775807L,
+                            RecordTimeUtc = new DateTime(2019, 11, 24, 1, 48, 40, 606, DateTimeKind.Utc),
+                            SessionId = 9223372036854775805L,
                             StreamUrl = "/api/Videostream/108",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 109L,
+                            Id = 9223372036854775798L,
                             Name = "AJP Lesson 1 part 2",
-                            PropertiesId = 100L,
-                            RecordTimeUtc = new DateTime(2019, 11, 12, 21, 17, 55, 190, DateTimeKind.Utc).AddTicks(118),
-                            SessionId = 102L,
+                            PropertiesId = 9223372036854775807L,
+                            RecordTimeUtc = new DateTime(2019, 11, 24, 2, 33, 40, 606, DateTimeKind.Utc),
+                            SessionId = 9223372036854775805L,
                             StreamUrl = "/api/Videostream/109",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 110L,
+                            Id = 9223372036854775797L,
                             Name = "AJP Lesson 1 part 3",
-                            PropertiesId = 100L,
-                            RecordTimeUtc = new DateTime(2019, 11, 12, 22, 2, 55, 190, DateTimeKind.Utc).AddTicks(122),
-                            SessionId = 102L,
+                            PropertiesId = 9223372036854775807L,
+                            RecordTimeUtc = new DateTime(2019, 11, 24, 3, 18, 40, 606, DateTimeKind.Utc),
+                            SessionId = 9223372036854775805L,
                             StreamUrl = "/api/Videostream/110",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 111L,
+                            Id = 9223372036854775796L,
                             Name = "AJP Lesson 1 part 4",
-                            PropertiesId = 100L,
-                            RecordTimeUtc = new DateTime(2019, 11, 12, 22, 57, 55, 190, DateTimeKind.Utc).AddTicks(122),
-                            SessionId = 102L,
+                            PropertiesId = 9223372036854775807L,
+                            RecordTimeUtc = new DateTime(2019, 11, 24, 4, 13, 40, 606, DateTimeKind.Utc),
+                            SessionId = 9223372036854775805L,
                             StreamUrl = "/api/Videostream/111",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 112L,
+                            Id = 9223372036854775795L,
                             Name = "AJP Lesson 2",
-                            PropertiesId = 100L,
-                            RecordTimeUtc = new DateTime(2019, 11, 19, 20, 32, 55, 190, DateTimeKind.Utc).AddTicks(125),
-                            SessionId = 103L,
+                            PropertiesId = 9223372036854775807L,
+                            RecordTimeUtc = new DateTime(2019, 12, 1, 1, 48, 40, 606, DateTimeKind.Utc),
+                            SessionId = 9223372036854775804L,
                             StreamUrl = "/api/Videostream/112",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 113L,
+                            Id = 9223372036854775794L,
                             Name = "AJP Lesson 2 part 2",
-                            PropertiesId = 100L,
-                            RecordTimeUtc = new DateTime(2019, 11, 19, 21, 17, 55, 190, DateTimeKind.Utc).AddTicks(125),
-                            SessionId = 103L,
+                            PropertiesId = 9223372036854775807L,
+                            RecordTimeUtc = new DateTime(2019, 12, 1, 2, 33, 40, 606, DateTimeKind.Utc),
+                            SessionId = 9223372036854775804L,
                             StreamUrl = "/api/Videostream/113",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 114L,
+                            Id = 9223372036854775793L,
                             Name = "AJP Lesson 2 part 3",
-                            PropertiesId = 100L,
-                            RecordTimeUtc = new DateTime(2019, 11, 19, 22, 2, 55, 190, DateTimeKind.Utc).AddTicks(128),
-                            SessionId = 103L,
+                            PropertiesId = 9223372036854775807L,
+                            RecordTimeUtc = new DateTime(2019, 12, 1, 3, 18, 40, 606, DateTimeKind.Utc),
+                            SessionId = 9223372036854775804L,
                             StreamUrl = "/api/Videostream/114",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 115L,
+                            Id = 9223372036854775792L,
                             Name = "AJP Lesson 2 part 4",
-                            PropertiesId = 100L,
-                            RecordTimeUtc = new DateTime(2019, 11, 19, 22, 57, 55, 190, DateTimeKind.Utc).AddTicks(128),
-                            SessionId = 103L,
+                            PropertiesId = 9223372036854775807L,
+                            RecordTimeUtc = new DateTime(2019, 12, 1, 4, 13, 40, 606, DateTimeKind.Utc),
+                            SessionId = 9223372036854775804L,
                             StreamUrl = "/api/Videostream/115",
                             ThumbnailURL = "/assets/video.jpeg"
                         });
@@ -481,7 +578,7 @@ namespace vc_webapi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 100L,
+                            Id = 9223372036854775807L,
                             ContainerExt = "mp4",
                             Duration = 10000L,
                             FileSize = 788493L,
@@ -501,7 +598,7 @@ namespace vc_webapi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 100L,
+                            Id = 9223372036854775807L,
                             Email = "some@mail.com",
                             FullName = "BPR Test Student",
                             UserName = "teststudent",
@@ -538,26 +635,42 @@ namespace vc_webapi.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("vc_webapi.Model.Session", b =>
-                {
-                    b.HasOne("vc_webapi.Model.Course", null)
-                        .WithMany("Sessions")
-                        .HasForeignKey("CourseId");
-                });
-
-            modelBuilder.Entity("vc_webapi.Model.UserSession", b =>
+            modelBuilder.Entity("vc_webapi.Model.Participant", b =>
                 {
                     b.HasOne("vc_webapi.Model.Session", "Session")
-                        .WithMany("UserSessions")
+                        .WithMany("DbParticipants")
                         .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("vc_webapi.Model.User", "User")
-                        .WithMany("Sessions")
+                        .WithMany("DbParticipants")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("vc_webapi.Model.ScheduledSession", b =>
+                {
+                    b.HasOne("vc_webapi.Model.Room", "Room")
+                        .WithMany("ScheduledSessions")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("vc_webapi.Model.Course", "Course")
+                        .WithMany("ScheduledSessions")
+                        .HasForeignKey("WebuntisCourseId")
+                        .HasPrincipalKey("WebuntisCourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("vc_webapi.Model.Session", b =>
+                {
+                    b.HasOne("vc_webapi.Model.Course", null)
+                        .WithMany("Sessions")
+                        .HasForeignKey("CourseId");
                 });
 
             modelBuilder.Entity("vc_webapi.Model.Video", b =>
