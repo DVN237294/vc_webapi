@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace vc_webapi.Migrations
 {
-    public partial class initial20 : Migration
+    public partial class initial3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,6 +46,7 @@ namespace vc_webapi.Migrations
                     UserName = table.Column<string>(nullable: true),
                     FullName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
+                    isTeacher = table.Column<bool>(nullable: false),
                     Discriminator = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -241,8 +242,8 @@ namespace vc_webapi.Migrations
                 columns: new[] { "Id", "Name", "WebuntisCourseId" },
                 values: new object[,]
                 {
-                    { 9223372036854775807L, "SDJ1", 9223372036854775807L },
-                    { 9223372036854775806L, "AJP1", 9223372036854775806L }
+                    { -1L, "SDJ1", -1L },
+                    { -2L, "AJP1", -2L }
                 });
 
             migrationBuilder.InsertData(
@@ -250,30 +251,30 @@ namespace vc_webapi.Migrations
                 columns: new[] { "Id", "Name", "WebuntisId" },
                 values: new object[,]
                 {
-                    { 9223372036854775807L, "F.301a UV", 1319L },
-                    { 9223372036854775806L, "F.301b UV", 1320L },
-                    { 9223372036854775805L, "F.302a UV", 1321L },
-                    { 9223372036854775804L, "F.302b UV", 1322L },
-                    { 9223372036854775803L, "F.304 UV", 1323L }
+                    { -1L, "F.301a UV", 1319L },
+                    { -2L, "F.301b UV", 1320L },
+                    { -3L, "F.302a UV", 1321L },
+                    { -4L, "F.302b UV", 1322L },
+                    { -5L, "F.304 UV", 1323L }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Discriminator", "Email", "FullName", "UserName" },
-                values: new object[] { 9223372036854775807L, "Student", "some@mail.com", "BPR Test Student", "teststudent" });
+                columns: new[] { "Id", "Discriminator", "Email", "FullName", "UserName", "isTeacher" },
+                values: new object[] { -1L, "Student", "some@mail.com", "BPR Test Student", "teststudent", false });
 
             migrationBuilder.InsertData(
                 table: "VideoProperties",
                 columns: new[] { "Id", "ContainerExt", "Duration", "FileSize", "Height", "MimeType", "VirtualFilePath", "Width" },
-                values: new object[] { 9223372036854775807L, "mp4", 10000L, 788493L, 176, "video/mp4", "testvideo.mp4", 320 });
+                values: new object[] { -1L, "mp4", 10000L, 788493L, 176, "video/mp4", "testvideo.mp4", 320 });
 
             migrationBuilder.InsertData(
                 table: "Enrollments",
                 columns: new[] { "Id", "CourseId", "EnrollmentDateUtc", "UserId" },
                 values: new object[,]
                 {
-                    { 9223372036854775807L, 9223372036854775807L, new DateTime(2019, 8, 25, 1, 48, 40, 606, DateTimeKind.Utc), 9223372036854775807L },
-                    { 9223372036854775806L, 9223372036854775806L, new DateTime(2019, 8, 25, 1, 48, 40, 606, DateTimeKind.Utc), 9223372036854775807L }
+                    { -1L, -1L, new DateTime(2019, 8, 25, 1, 48, 40, 606, DateTimeKind.Utc), -1L },
+                    { -2L, -2L, new DateTime(2019, 8, 25, 1, 48, 40, 606, DateTimeKind.Utc), -1L }
                 });
 
             migrationBuilder.InsertData(
@@ -281,10 +282,10 @@ namespace vc_webapi.Migrations
                 columns: new[] { "Id", "CourseId", "Date" },
                 values: new object[,]
                 {
-                    { 9223372036854775807L, 9223372036854775807L, new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc) },
-                    { 9223372036854775806L, 9223372036854775807L, new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc) },
-                    { 9223372036854775805L, 9223372036854775806L, new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc) },
-                    { 9223372036854775804L, 9223372036854775806L, new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc) }
+                    { -1L, -1L, new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc) },
+                    { -2L, -1L, new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc) },
+                    { -3L, -2L, new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc) },
+                    { -4L, -2L, new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc) }
                 });
 
             migrationBuilder.InsertData(
@@ -292,10 +293,10 @@ namespace vc_webapi.Migrations
                 columns: new[] { "Id", "SessionId", "UserId" },
                 values: new object[,]
                 {
-                    { 9223372036854775807L, 9223372036854775807L, 9223372036854775807L },
-                    { 9223372036854775804L, 9223372036854775804L, 9223372036854775807L },
-                    { 9223372036854775806L, 9223372036854775806L, 9223372036854775807L },
-                    { 9223372036854775805L, 9223372036854775805L, 9223372036854775807L }
+                    { -1L, -1L, -1L },
+                    { -4L, -4L, -1L },
+                    { -2L, -2L, -1L },
+                    { -3L, -3L, -1L }
                 });
 
             migrationBuilder.InsertData(
@@ -303,22 +304,22 @@ namespace vc_webapi.Migrations
                 columns: new[] { "Id", "Name", "PropertiesId", "RecordTimeUtc", "SessionId", "StreamUrl", "ThumbnailURL" },
                 values: new object[,]
                 {
-                    { 9223372036854775794L, "AJP Lesson 2 part 2", 9223372036854775807L, new DateTime(2019, 12, 1, 2, 33, 40, 606, DateTimeKind.Utc), 9223372036854775804L, "/api/Videostream/113", "/assets/video.jpeg" },
-                    { 9223372036854775795L, "AJP Lesson 2", 9223372036854775807L, new DateTime(2019, 12, 1, 1, 48, 40, 606, DateTimeKind.Utc), 9223372036854775804L, "/api/Videostream/112", "/assets/video.jpeg" },
-                    { 9223372036854775796L, "AJP Lesson 1 part 4", 9223372036854775807L, new DateTime(2019, 11, 24, 4, 13, 40, 606, DateTimeKind.Utc), 9223372036854775805L, "/api/Videostream/111", "/assets/video.jpeg" },
-                    { 9223372036854775797L, "AJP Lesson 1 part 3", 9223372036854775807L, new DateTime(2019, 11, 24, 3, 18, 40, 606, DateTimeKind.Utc), 9223372036854775805L, "/api/Videostream/110", "/assets/video.jpeg" },
-                    { 9223372036854775798L, "AJP Lesson 1 part 2", 9223372036854775807L, new DateTime(2019, 11, 24, 2, 33, 40, 606, DateTimeKind.Utc), 9223372036854775805L, "/api/Videostream/109", "/assets/video.jpeg" },
-                    { 9223372036854775799L, "AJP Lesson 1", 9223372036854775807L, new DateTime(2019, 11, 24, 1, 48, 40, 606, DateTimeKind.Utc), 9223372036854775805L, "/api/Videostream/108", "/assets/video.jpeg" },
-                    { 9223372036854775800L, "SDJ Lesson 2 part 4", 9223372036854775807L, new DateTime(2019, 11, 30, 4, 13, 40, 606, DateTimeKind.Utc), 9223372036854775806L, "/api/Videostream/107", "/assets/video.jpeg" },
-                    { 9223372036854775801L, "SDJ Lesson 2 part 3", 9223372036854775807L, new DateTime(2019, 11, 30, 3, 18, 40, 606, DateTimeKind.Utc), 9223372036854775806L, "/api/Videostream/106", "/assets/video.jpeg" },
-                    { 9223372036854775802L, "SDJ Lesson 2 part 2", 9223372036854775807L, new DateTime(2019, 11, 30, 2, 33, 40, 606, DateTimeKind.Utc), 9223372036854775806L, "/api/Videostream/105", "/assets/video.jpeg" },
-                    { 9223372036854775803L, "SDJ Lesson 2", 9223372036854775807L, new DateTime(2019, 11, 30, 1, 48, 40, 606, DateTimeKind.Utc), 9223372036854775806L, "/api/Videostream/104", "/assets/video.jpeg" },
-                    { 9223372036854775804L, "SDJ Lesson 1 part 4", 9223372036854775807L, new DateTime(2019, 11, 23, 4, 13, 40, 606, DateTimeKind.Utc), 9223372036854775807L, "/api/Videostream/103", "/assets/video.jpeg" },
-                    { 9223372036854775805L, "SDJ Lesson 1 part 3", 9223372036854775807L, new DateTime(2019, 11, 23, 3, 18, 40, 606, DateTimeKind.Utc), 9223372036854775807L, "/api/Videostream/102", "/assets/video.jpeg" },
-                    { 9223372036854775806L, "SDJ Lesson 1 part 2", 9223372036854775807L, new DateTime(2019, 11, 23, 2, 33, 40, 606, DateTimeKind.Utc), 9223372036854775807L, "/api/Videostream/101", "/assets/video.jpeg" },
-                    { 9223372036854775807L, "SDJ Lesson 1", 9223372036854775807L, new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc), 9223372036854775807L, "/api/Videostream/100", "/assets/video.jpeg" },
-                    { 9223372036854775793L, "AJP Lesson 2 part 3", 9223372036854775807L, new DateTime(2019, 12, 1, 3, 18, 40, 606, DateTimeKind.Utc), 9223372036854775804L, "/api/Videostream/114", "/assets/video.jpeg" },
-                    { 9223372036854775792L, "AJP Lesson 2 part 4", 9223372036854775807L, new DateTime(2019, 12, 1, 4, 13, 40, 606, DateTimeKind.Utc), 9223372036854775804L, "/api/Videostream/115", "/assets/video.jpeg" }
+                    { -14L, "AJP Lesson 2 part 2", -1L, new DateTime(2019, 12, 1, 2, 33, 40, 606, DateTimeKind.Utc), -4L, "/api/Videostream/-14", "/assets/video.jpeg" },
+                    { -13L, "AJP Lesson 2", -1L, new DateTime(2019, 12, 1, 1, 48, 40, 606, DateTimeKind.Utc), -4L, "/api/Videostream/-13", "/assets/video.jpeg" },
+                    { -12L, "AJP Lesson 1 part 4", -1L, new DateTime(2019, 11, 24, 4, 13, 40, 606, DateTimeKind.Utc), -3L, "/api/Videostream/-12", "/assets/video.jpeg" },
+                    { -11L, "AJP Lesson 1 part 3", -1L, new DateTime(2019, 11, 24, 3, 18, 40, 606, DateTimeKind.Utc), -3L, "/api/Videostream/-11", "/assets/video.jpeg" },
+                    { -10L, "AJP Lesson 1 part 2", -1L, new DateTime(2019, 11, 24, 2, 33, 40, 606, DateTimeKind.Utc), -3L, "/api/Videostream/-10", "/assets/video.jpeg" },
+                    { -9L, "AJP Lesson 1", -1L, new DateTime(2019, 11, 24, 1, 48, 40, 606, DateTimeKind.Utc), -3L, "/api/Videostream/-9", "/assets/video.jpeg" },
+                    { -8L, "SDJ Lesson 2 part 4", -1L, new DateTime(2019, 11, 30, 4, 13, 40, 606, DateTimeKind.Utc), -2L, "/api/Videostream/-8", "/assets/video.jpeg" },
+                    { -7L, "SDJ Lesson 2 part 3", -1L, new DateTime(2019, 11, 30, 3, 18, 40, 606, DateTimeKind.Utc), -2L, "/api/Videostream/-7", "/assets/video.jpeg" },
+                    { -6L, "SDJ Lesson 2 part 2", -1L, new DateTime(2019, 11, 30, 2, 33, 40, 606, DateTimeKind.Utc), -2L, "/api/Videostream/-6", "/assets/video.jpeg" },
+                    { -5L, "SDJ Lesson 2", -1L, new DateTime(2019, 11, 30, 1, 48, 40, 606, DateTimeKind.Utc), -2L, "/api/Videostream/-5", "/assets/video.jpeg" },
+                    { -4L, "SDJ Lesson 1 part 4", -1L, new DateTime(2019, 11, 23, 4, 13, 40, 606, DateTimeKind.Utc), -1L, "/api/Videostream/-4", "/assets/video.jpeg" },
+                    { -3L, "SDJ Lesson 1 part 3", -1L, new DateTime(2019, 11, 23, 3, 18, 40, 606, DateTimeKind.Utc), -1L, "/api/Videostream/-3", "/assets/video.jpeg" },
+                    { -2L, "SDJ Lesson 1 part 2", -1L, new DateTime(2019, 11, 23, 2, 33, 40, 606, DateTimeKind.Utc), -1L, "/api/Videostream/-2", "/assets/video.jpeg" },
+                    { -1L, "SDJ Lesson 1", -1L, new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc), -1L, "/api/Videostream/-1", "/assets/video.jpeg" },
+                    { -15L, "AJP Lesson 2 part 3", -1L, new DateTime(2019, 12, 1, 3, 18, 40, 606, DateTimeKind.Utc), -4L, "/api/Videostream/-15", "/assets/video.jpeg" },
+                    { -16L, "AJP Lesson 2 part 4", -1L, new DateTime(2019, 12, 1, 4, 13, 40, 606, DateTimeKind.Utc), -4L, "/api/Videostream/-16", "/assets/video.jpeg" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -16,7 +16,7 @@ namespace vc_webapi.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
-                .HasAnnotation("ProductVersion", "3.0.0")
+                .HasAnnotation("ProductVersion", "3.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("vc_webapi.Model.Comment", b =>
@@ -70,15 +70,15 @@ namespace vc_webapi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 9223372036854775807L,
+                            Id = -1L,
                             Name = "SDJ1",
-                            WebuntisCourseId = 9223372036854775807L
+                            WebuntisCourseId = -1L
                         },
                         new
                         {
-                            Id = 9223372036854775806L,
+                            Id = -2L,
                             Name = "AJP1",
-                            WebuntisCourseId = 9223372036854775806L
+                            WebuntisCourseId = -2L
                         });
                 });
 
@@ -109,17 +109,17 @@ namespace vc_webapi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 9223372036854775807L,
-                            CourseId = 9223372036854775807L,
+                            Id = -1L,
+                            CourseId = -1L,
                             EnrollmentDateUtc = new DateTime(2019, 8, 25, 1, 48, 40, 606, DateTimeKind.Utc),
-                            UserId = 9223372036854775807L
+                            UserId = -1L
                         },
                         new
                         {
-                            Id = 9223372036854775806L,
-                            CourseId = 9223372036854775806L,
+                            Id = -2L,
+                            CourseId = -2L,
                             EnrollmentDateUtc = new DateTime(2019, 8, 25, 1, 48, 40, 606, DateTimeKind.Utc),
-                            UserId = 9223372036854775807L
+                            UserId = -1L
                         });
                 });
 
@@ -147,27 +147,27 @@ namespace vc_webapi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 9223372036854775807L,
-                            SessionId = 9223372036854775807L,
-                            UserId = 9223372036854775807L
+                            Id = -1L,
+                            SessionId = -1L,
+                            UserId = -1L
                         },
                         new
                         {
-                            Id = 9223372036854775806L,
-                            SessionId = 9223372036854775806L,
-                            UserId = 9223372036854775807L
+                            Id = -2L,
+                            SessionId = -2L,
+                            UserId = -1L
                         },
                         new
                         {
-                            Id = 9223372036854775805L,
-                            SessionId = 9223372036854775805L,
-                            UserId = 9223372036854775807L
+                            Id = -3L,
+                            SessionId = -3L,
+                            UserId = -1L
                         },
                         new
                         {
-                            Id = 9223372036854775804L,
-                            SessionId = 9223372036854775804L,
-                            UserId = 9223372036854775807L
+                            Id = -4L,
+                            SessionId = -4L,
+                            UserId = -1L
                         });
                 });
 
@@ -194,31 +194,31 @@ namespace vc_webapi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 9223372036854775807L,
+                            Id = -1L,
                             Name = "F.301a UV",
                             WebuntisId = 1319L
                         },
                         new
                         {
-                            Id = 9223372036854775806L,
+                            Id = -2L,
                             Name = "F.301b UV",
                             WebuntisId = 1320L
                         },
                         new
                         {
-                            Id = 9223372036854775805L,
+                            Id = -3L,
                             Name = "F.302a UV",
                             WebuntisId = 1321L
                         },
                         new
                         {
-                            Id = 9223372036854775804L,
+                            Id = -4L,
                             Name = "F.302b UV",
                             WebuntisId = 1322L
                         },
                         new
                         {
-                            Id = 9223372036854775803L,
+                            Id = -5L,
                             Name = "F.304 UV",
                             WebuntisId = 1323L
                         });
@@ -285,26 +285,26 @@ namespace vc_webapi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 9223372036854775807L,
-                            CourseId = 9223372036854775807L,
+                            Id = -1L,
+                            CourseId = -1L,
                             Date = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc)
                         },
                         new
                         {
-                            Id = 9223372036854775806L,
-                            CourseId = 9223372036854775807L,
+                            Id = -2L,
+                            CourseId = -1L,
                             Date = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc)
                         },
                         new
                         {
-                            Id = 9223372036854775805L,
-                            CourseId = 9223372036854775806L,
+                            Id = -3L,
+                            CourseId = -2L,
                             Date = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc)
                         },
                         new
                         {
-                            Id = 9223372036854775804L,
-                            CourseId = 9223372036854775806L,
+                            Id = -4L,
+                            CourseId = -2L,
                             Date = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc)
                         });
                 });
@@ -379,162 +379,162 @@ namespace vc_webapi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 9223372036854775807L,
+                            Id = -1L,
                             Name = "SDJ Lesson 1",
-                            PropertiesId = 9223372036854775807L,
+                            PropertiesId = -1L,
                             RecordTimeUtc = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc),
-                            SessionId = 9223372036854775807L,
-                            StreamUrl = "/api/Videostream/100",
+                            SessionId = -1L,
+                            StreamUrl = "/api/Videostream/-1",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 9223372036854775806L,
+                            Id = -2L,
                             Name = "SDJ Lesson 1 part 2",
-                            PropertiesId = 9223372036854775807L,
+                            PropertiesId = -1L,
                             RecordTimeUtc = new DateTime(2019, 11, 23, 2, 33, 40, 606, DateTimeKind.Utc),
-                            SessionId = 9223372036854775807L,
-                            StreamUrl = "/api/Videostream/101",
+                            SessionId = -1L,
+                            StreamUrl = "/api/Videostream/-2",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 9223372036854775805L,
+                            Id = -3L,
                             Name = "SDJ Lesson 1 part 3",
-                            PropertiesId = 9223372036854775807L,
+                            PropertiesId = -1L,
                             RecordTimeUtc = new DateTime(2019, 11, 23, 3, 18, 40, 606, DateTimeKind.Utc),
-                            SessionId = 9223372036854775807L,
-                            StreamUrl = "/api/Videostream/102",
+                            SessionId = -1L,
+                            StreamUrl = "/api/Videostream/-3",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 9223372036854775804L,
+                            Id = -4L,
                             Name = "SDJ Lesson 1 part 4",
-                            PropertiesId = 9223372036854775807L,
+                            PropertiesId = -1L,
                             RecordTimeUtc = new DateTime(2019, 11, 23, 4, 13, 40, 606, DateTimeKind.Utc),
-                            SessionId = 9223372036854775807L,
-                            StreamUrl = "/api/Videostream/103",
+                            SessionId = -1L,
+                            StreamUrl = "/api/Videostream/-4",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 9223372036854775803L,
+                            Id = -5L,
                             Name = "SDJ Lesson 2",
-                            PropertiesId = 9223372036854775807L,
+                            PropertiesId = -1L,
                             RecordTimeUtc = new DateTime(2019, 11, 30, 1, 48, 40, 606, DateTimeKind.Utc),
-                            SessionId = 9223372036854775806L,
-                            StreamUrl = "/api/Videostream/104",
+                            SessionId = -2L,
+                            StreamUrl = "/api/Videostream/-5",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 9223372036854775802L,
+                            Id = -6L,
                             Name = "SDJ Lesson 2 part 2",
-                            PropertiesId = 9223372036854775807L,
+                            PropertiesId = -1L,
                             RecordTimeUtc = new DateTime(2019, 11, 30, 2, 33, 40, 606, DateTimeKind.Utc),
-                            SessionId = 9223372036854775806L,
-                            StreamUrl = "/api/Videostream/105",
+                            SessionId = -2L,
+                            StreamUrl = "/api/Videostream/-6",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 9223372036854775801L,
+                            Id = -7L,
                             Name = "SDJ Lesson 2 part 3",
-                            PropertiesId = 9223372036854775807L,
+                            PropertiesId = -1L,
                             RecordTimeUtc = new DateTime(2019, 11, 30, 3, 18, 40, 606, DateTimeKind.Utc),
-                            SessionId = 9223372036854775806L,
-                            StreamUrl = "/api/Videostream/106",
+                            SessionId = -2L,
+                            StreamUrl = "/api/Videostream/-7",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 9223372036854775800L,
+                            Id = -8L,
                             Name = "SDJ Lesson 2 part 4",
-                            PropertiesId = 9223372036854775807L,
+                            PropertiesId = -1L,
                             RecordTimeUtc = new DateTime(2019, 11, 30, 4, 13, 40, 606, DateTimeKind.Utc),
-                            SessionId = 9223372036854775806L,
-                            StreamUrl = "/api/Videostream/107",
+                            SessionId = -2L,
+                            StreamUrl = "/api/Videostream/-8",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 9223372036854775799L,
+                            Id = -9L,
                             Name = "AJP Lesson 1",
-                            PropertiesId = 9223372036854775807L,
+                            PropertiesId = -1L,
                             RecordTimeUtc = new DateTime(2019, 11, 24, 1, 48, 40, 606, DateTimeKind.Utc),
-                            SessionId = 9223372036854775805L,
-                            StreamUrl = "/api/Videostream/108",
+                            SessionId = -3L,
+                            StreamUrl = "/api/Videostream/-9",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 9223372036854775798L,
+                            Id = -10L,
                             Name = "AJP Lesson 1 part 2",
-                            PropertiesId = 9223372036854775807L,
+                            PropertiesId = -1L,
                             RecordTimeUtc = new DateTime(2019, 11, 24, 2, 33, 40, 606, DateTimeKind.Utc),
-                            SessionId = 9223372036854775805L,
-                            StreamUrl = "/api/Videostream/109",
+                            SessionId = -3L,
+                            StreamUrl = "/api/Videostream/-10",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 9223372036854775797L,
+                            Id = -11L,
                             Name = "AJP Lesson 1 part 3",
-                            PropertiesId = 9223372036854775807L,
+                            PropertiesId = -1L,
                             RecordTimeUtc = new DateTime(2019, 11, 24, 3, 18, 40, 606, DateTimeKind.Utc),
-                            SessionId = 9223372036854775805L,
-                            StreamUrl = "/api/Videostream/110",
+                            SessionId = -3L,
+                            StreamUrl = "/api/Videostream/-11",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 9223372036854775796L,
+                            Id = -12L,
                             Name = "AJP Lesson 1 part 4",
-                            PropertiesId = 9223372036854775807L,
+                            PropertiesId = -1L,
                             RecordTimeUtc = new DateTime(2019, 11, 24, 4, 13, 40, 606, DateTimeKind.Utc),
-                            SessionId = 9223372036854775805L,
-                            StreamUrl = "/api/Videostream/111",
+                            SessionId = -3L,
+                            StreamUrl = "/api/Videostream/-12",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 9223372036854775795L,
+                            Id = -13L,
                             Name = "AJP Lesson 2",
-                            PropertiesId = 9223372036854775807L,
+                            PropertiesId = -1L,
                             RecordTimeUtc = new DateTime(2019, 12, 1, 1, 48, 40, 606, DateTimeKind.Utc),
-                            SessionId = 9223372036854775804L,
-                            StreamUrl = "/api/Videostream/112",
+                            SessionId = -4L,
+                            StreamUrl = "/api/Videostream/-13",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 9223372036854775794L,
+                            Id = -14L,
                             Name = "AJP Lesson 2 part 2",
-                            PropertiesId = 9223372036854775807L,
+                            PropertiesId = -1L,
                             RecordTimeUtc = new DateTime(2019, 12, 1, 2, 33, 40, 606, DateTimeKind.Utc),
-                            SessionId = 9223372036854775804L,
-                            StreamUrl = "/api/Videostream/113",
+                            SessionId = -4L,
+                            StreamUrl = "/api/Videostream/-14",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 9223372036854775793L,
+                            Id = -15L,
                             Name = "AJP Lesson 2 part 3",
-                            PropertiesId = 9223372036854775807L,
+                            PropertiesId = -1L,
                             RecordTimeUtc = new DateTime(2019, 12, 1, 3, 18, 40, 606, DateTimeKind.Utc),
-                            SessionId = 9223372036854775804L,
-                            StreamUrl = "/api/Videostream/114",
+                            SessionId = -4L,
+                            StreamUrl = "/api/Videostream/-15",
                             ThumbnailURL = "/assets/video.jpeg"
                         },
                         new
                         {
-                            Id = 9223372036854775792L,
+                            Id = -16L,
                             Name = "AJP Lesson 2 part 4",
-                            PropertiesId = 9223372036854775807L,
+                            PropertiesId = -1L,
                             RecordTimeUtc = new DateTime(2019, 12, 1, 4, 13, 40, 606, DateTimeKind.Utc),
-                            SessionId = 9223372036854775804L,
-                            StreamUrl = "/api/Videostream/115",
+                            SessionId = -4L,
+                            StreamUrl = "/api/Videostream/-16",
                             ThumbnailURL = "/assets/video.jpeg"
                         });
                 });
@@ -576,7 +576,7 @@ namespace vc_webapi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 9223372036854775807L,
+                            Id = -1L,
                             ContainerExt = "mp4",
                             Duration = 10000L,
                             FileSize = 788493L,
@@ -596,7 +596,7 @@ namespace vc_webapi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 9223372036854775807L,
+                            Id = -1L,
                             Email = "some@mail.com",
                             FullName = "BPR Test Student",
                             UserName = "teststudent",

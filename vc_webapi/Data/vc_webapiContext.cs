@@ -64,13 +64,13 @@ namespace vc_webapi.Data
             {
                 FullName = "BPR Test Student",
                 UserName = "teststudent",
-                Id = long.MaxValue,
+                Id = -1L,
                 Email = "some@mail.com"
             };
             builder.Entity<Student>().HasData(testStudent);
             builder.Entity<VideoProperties>().HasData(new VideoProperties
             {
-                Id = long.MaxValue,
+                Id = -1L,
                 ContainerExt = "mp4",
                 Duration = 10000L,
                 FileSize = 788493L,
@@ -84,231 +84,231 @@ namespace vc_webapi.Data
             {
                  new
                  {
-                     Id = long.MaxValue,
+                     Id = -1L,
                      RecordTimeUtc = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc),
                      ThumbnailURL = "/assets/video.jpeg",
-                     StreamUrl = $"{VideostreamController.StreamBaseUrl}100",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}{-1L}",
                      Name = "SDJ Lesson 1",
                      Duration = 10L,
-                     SessionId = long.MaxValue,
-                     PropertiesId = long.MaxValue
+                     SessionId = -1L,
+                     PropertiesId = -1L
                  },
                  new
                  {
-                     Id = long.MaxValue - 1L,
+                     Id = -1L - 1L,
                      RecordTimeUtc = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc) + TimeSpan.FromMinutes(45),
                      ThumbnailURL = "/assets/video.jpeg",
-                     StreamUrl = $"{VideostreamController.StreamBaseUrl}101",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}{-1L - 1L}",
                      Name = "SDJ Lesson 1 part 2",
                      Duration = 10L,
-                     SessionId = long.MaxValue,
-                     PropertiesId = long.MaxValue
+                     SessionId = -1L,
+                     PropertiesId = -1L
                  },
                  new
                  {
-                     Id = long.MaxValue - 2L,
+                     Id = -1L - 2L,
                      RecordTimeUtc = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc) + TimeSpan.FromMinutes(90),
                      ThumbnailURL = "/assets/video.jpeg",
-                     StreamUrl = $"{VideostreamController.StreamBaseUrl}102",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}{-1L - 2L}",
                      Name = "SDJ Lesson 1 part 3",
                      Duration = 10L,
-                     SessionId = long.MaxValue,
-                     PropertiesId = long.MaxValue
+                     SessionId = -1L,
+                     PropertiesId = -1L
                  },
                  new
                  {
-                     Id = long.MaxValue - 3L,
+                     Id = -1L - 3L,
                      RecordTimeUtc = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc) + TimeSpan.FromMinutes(145),
                      ThumbnailURL = "/assets/video.jpeg",
-                     StreamUrl = $"{VideostreamController.StreamBaseUrl}103",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}{-1L - 3L}",
                      Name = "SDJ Lesson 1 part 4",
                      Duration = 10L,
-                     SessionId = long.MaxValue,
-                     PropertiesId = long.MaxValue
+                     SessionId = -1L,
+                     PropertiesId = -1L
                  }
              };
             var sdjSession2 = new object[]
             {
                  new
                  {
-                     Id = long.MaxValue - 4L,
+                     Id = -1L - 4L,
                      RecordTimeUtc = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc) + TimeSpan.FromDays(7),
                      ThumbnailURL = "/assets/video.jpeg",
-                     StreamUrl = $"{VideostreamController.StreamBaseUrl}104",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}{-1L - 4L}",
                      Name = "SDJ Lesson 2",
                      Duration = 10L,
-                     SessionId = long.MaxValue - 1L,
-                     PropertiesId = long.MaxValue
+                     SessionId = -1L - 1L,
+                     PropertiesId = -1L
                  },
                  new
                  {
-                     Id = long.MaxValue - 5L,
+                     Id = -1L - 5L,
                      RecordTimeUtc = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc) + TimeSpan.FromDays(7) + TimeSpan.FromMinutes(45),
                      ThumbnailURL = "/assets/video.jpeg",
-                     StreamUrl = $"{VideostreamController.StreamBaseUrl}105",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}{-1L - 5L}",
                      Name = "SDJ Lesson 2 part 2",
                      Duration = 10L,
-                     SessionId = long.MaxValue - 1L,
-                     PropertiesId = long.MaxValue
+                     SessionId = -1L - 1L,
+                     PropertiesId = -1L
                  },
                  new
                  {
-                     Id = long.MaxValue - 6L,
+                     Id = -1L - 6L,
                      RecordTimeUtc = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc) + TimeSpan.FromDays(7) + TimeSpan.FromMinutes(90),
                      ThumbnailURL = "/assets/video.jpeg",
-                     StreamUrl = $"{VideostreamController.StreamBaseUrl}106",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}{-1L - 6L}",
                      Name = "SDJ Lesson 2 part 3",
                      Duration = 10L,
-                     SessionId = long.MaxValue - 1L,
-                     PropertiesId = long.MaxValue
+                     SessionId = -1L - 1L,
+                     PropertiesId = -1L
                  },
                  new
                  {
-                     Id = long.MaxValue - 7L,
+                     Id = -1L - 7L,
                      RecordTimeUtc = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc) + TimeSpan.FromDays(7) + TimeSpan.FromMinutes(145),
                      ThumbnailURL = "/assets/video.jpeg",
-                     StreamUrl = $"{VideostreamController.StreamBaseUrl}107",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}{-1L - 7L}",
                      Name = "SDJ Lesson 2 part 4",
                      Duration = 10L,
-                     SessionId = long.MaxValue - 1L,
-                     PropertiesId = long.MaxValue
+                     SessionId = -1L - 1L,
+                     PropertiesId = -1L
                  }
             };
             var sdjSessions = new object[]
             {
                  new
                  {
-                     Id = long.MaxValue,
+                     Id = -1L,
                      Date = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc),
-                     CourseId = long.MaxValue
+                     CourseId = -1L
                  },
                  new
                  {
-                     Id = long.MaxValue - 1L,
+                     Id = -1L - 1L,
                      Date = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc),
-                     CourseId = long.MaxValue
+                     CourseId = -1L
                  }
             };
             Course sdj1 = new Course
             {
-                Id = long.MaxValue,
+                Id = -1L,
                 Name = "SDJ1",
-                WebuntisCourseId = long.MaxValue
+                WebuntisCourseId = -1L
             };
             var ajpSession1 = new object[]
              {
                  new
                  {
-                     Id = long.MaxValue - 8L,
+                     Id = -1L - 8L,
                      RecordTimeUtc = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc) + TimeSpan.FromDays(1),
                      ThumbnailURL = "/assets/video.jpeg",
-                     StreamUrl = $"{VideostreamController.StreamBaseUrl}108",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}{-1L - 8L}",
                      Name = "AJP Lesson 1",
                      Duration = 10L,
-                     SessionId = long.MaxValue - 2L,
-                     PropertiesId = long.MaxValue
+                     SessionId = -1L - 2L,
+                     PropertiesId = -1L
                  },
                  new
                  {
-                     Id = long.MaxValue - 9L,
+                     Id = -1L - 9L,
                      RecordTimeUtc = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc) + TimeSpan.FromDays(1) + TimeSpan.FromMinutes(45),
                      ThumbnailURL = "/assets/video.jpeg",
-                     StreamUrl = $"{VideostreamController.StreamBaseUrl}109",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}{-1L - 9L}",
                      Name = "AJP Lesson 1 part 2",
                      Duration = 10L,
-                     SessionId = long.MaxValue - 2L,
-                     PropertiesId = long.MaxValue
+                     SessionId = -1L - 2L,
+                     PropertiesId = -1L
                  },
                  new
                  {
-                     Id = long.MaxValue - 10L,
+                     Id = -1L - 10L,
                      RecordTimeUtc = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc) + TimeSpan.FromDays(1) + TimeSpan.FromMinutes(90),
                      ThumbnailURL = "/assets/video.jpeg",
-                     StreamUrl = $"{VideostreamController.StreamBaseUrl}110",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}{-1L - 10L}",
                      Name = "AJP Lesson 1 part 3",
                      Duration = 10L,
-                     SessionId = long.MaxValue - 2L,
-                     PropertiesId = long.MaxValue
+                     SessionId = -1L - 2L,
+                     PropertiesId = -1L
                  },
                  new
                  {
-                     Id = long.MaxValue - 11L,
+                     Id = -1L - 11L,
                      RecordTimeUtc = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc) + TimeSpan.FromDays(1) + TimeSpan.FromMinutes(145),
                      ThumbnailURL = "/assets/video.jpeg",
-                     StreamUrl = $"{VideostreamController.StreamBaseUrl}111",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}{-1L - 11L}",
                      Name = "AJP Lesson 1 part 4",
                      Duration = 10L,
-                     SessionId = long.MaxValue - 2L,
-                     PropertiesId = long.MaxValue
+                     SessionId = -1L - 2L,
+                     PropertiesId = -1L
                  }
              };
             var ajpSession2 = new object[]
             {
                  new
                  {
-                     Id = long.MaxValue - 12L,
+                     Id = -1L - 12L,
                      RecordTimeUtc = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc) + TimeSpan.FromDays(8),
                      ThumbnailURL = "/assets/video.jpeg",
-                     StreamUrl = $"{VideostreamController.StreamBaseUrl}112",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}{-1L - 12L}",
                      Name = "AJP Lesson 2",
                      Duration = 10L,
-                     SessionId = long.MaxValue - 3L,
-                     PropertiesId = long.MaxValue
+                     SessionId = -1L - 3L,
+                     PropertiesId = -1L
                  },
                  new
                  {
-                     Id = long.MaxValue - 13L,
+                     Id = -1L - 13L,
                      RecordTimeUtc = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc) + TimeSpan.FromDays(8) + TimeSpan.FromMinutes(45),
                      ThumbnailURL = "/assets/video.jpeg",
-                     StreamUrl = $"{VideostreamController.StreamBaseUrl}113",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}{-1L - 13L}",
                      Name = "AJP Lesson 2 part 2",
                      Duration = 10L,
-                     SessionId = long.MaxValue - 3L,
-                     PropertiesId = long.MaxValue
+                     SessionId = -1L - 3L,
+                     PropertiesId = -1L
                  },
                  new
                  {
-                     Id = long.MaxValue - 14L,
+                     Id = -1L - 14L,
                      RecordTimeUtc = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc) + TimeSpan.FromDays(8) + TimeSpan.FromMinutes(90),
                      ThumbnailURL = "/assets/video.jpeg",
-                     StreamUrl = $"{VideostreamController.StreamBaseUrl}114",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}{-1L - 14L}",
                      Name = "AJP Lesson 2 part 3",
                      Duration = 10L,
-                     SessionId = long.MaxValue - 3L,
-                     PropertiesId = long.MaxValue
+                     SessionId = -1L - 3L,
+                     PropertiesId = -1L
                  },
                  new
                  {
-                     Id = long.MaxValue - 15L,
+                     Id = -1L - 15L,
                      RecordTimeUtc = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc) + TimeSpan.FromDays(8) + TimeSpan.FromMinutes(145),
                      ThumbnailURL = "/assets/video.jpeg",
-                     StreamUrl = $"{VideostreamController.StreamBaseUrl}115",
+                     StreamUrl = $"{VideostreamController.StreamBaseUrl}{-1L - 15L}",
                      Name = "AJP Lesson 2 part 4",
                      Duration = 10L,
-                     SessionId = long.MaxValue - 3L,
-                     PropertiesId = long.MaxValue
+                     SessionId = -1L - 3L,
+                     PropertiesId = -1L
                  }
             };
             var ajpSessions = new object[]
             {
                  new
                  {
-                     Id = long.MaxValue - 2L,
+                     Id = -1L - 2L,
                      Date = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc),
-                     CourseId = long.MaxValue - 1L
+                     CourseId = -1L - 1L
                  },
                  new
                  {
-                     Id = long.MaxValue - 3L,
+                     Id = -1L - 3L,
                      Date = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc),
-                     CourseId = long.MaxValue - 1L
+                     CourseId = -1L - 1L
                  }
             };
             Course ajp1 = new Course
             {
-                Id = long.MaxValue - 1L,
+                Id = -1L - 1L,
                 Name = "AJP1",
-                WebuntisCourseId = long.MaxValue - 1L
+                WebuntisCourseId = -1L - 1L
             };
 
             builder.Entity<Video>().HasData(sdjSession1.Concat(sdjSession2).Concat(ajpSession1).Concat(ajpSession2));
@@ -317,73 +317,73 @@ namespace vc_webapi.Data
             builder.Entity<Enrollment>().HasData(
             new
             {
-                Id = long.MaxValue,
+                Id = -1L,
                 EnrollmentDateUtc = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc).AddDays(-90),
-                UserId = long.MaxValue,
-                CourseId = long.MaxValue
+                UserId = -1L,
+                CourseId = -1L
             },
             new
             {
-                Id = long.MaxValue - 1L,
+                Id = -1L - 1L,
                 EnrollmentDateUtc = new DateTime(2019, 11, 23, 1, 48, 40, 606, DateTimeKind.Utc).AddDays(-90),
-                UserId = long.MaxValue,
-                CourseId = long.MaxValue - 1L
+                UserId = -1L,
+                CourseId = -1L - 1L
             });
 
             builder.Entity<Participant>().HasData(
             new Participant
             {
-                Id = long.MaxValue,
-                SessionId = long.MaxValue,
-                UserId = long.MaxValue
+                Id = -1L,
+                SessionId = -1L,
+                UserId = -1L
             },
             new Participant
             {
-                Id = long.MaxValue - 1L,
-                SessionId = long.MaxValue - 1L,
-                UserId = long.MaxValue
+                Id = -1L - 1L,
+                SessionId = -1L - 1L,
+                UserId = -1L
             },
             new Participant
             {
-                Id = long.MaxValue - 2L,
-                SessionId = long.MaxValue - 2L,
-                UserId = long.MaxValue
+                Id = -1L - 2L,
+                SessionId = -1L - 2L,
+                UserId = -1L
             },
             new Participant
             {
-                Id = long.MaxValue - 3L,
-                SessionId = long.MaxValue - 3L,
-                UserId = long.MaxValue
+                Id = -1L - 3L,
+                SessionId = -1L - 3L,
+                UserId = -1L
             });
 
             builder.Entity<Room>().HasData(
             new Room
             {
-                Id = long.MaxValue,
+                Id = -1L,
                 WebuntisId = 1319,
                 Name = "F.301a UV",
             }, 
             new Room
             {
-                Id = long.MaxValue - 1L,
+                Id = -1L - 1L,
                 WebuntisId = 1320,
                 Name = "F.301b UV",
             },
             new Room
             {
-                Id = long.MaxValue - 2L,
+                Id = -1L - 2L,
                 WebuntisId = 1321,
                 Name = "F.302a UV",
             },
             new Room
             {
-                Id = long.MaxValue - 3L,
+                Id = -1L - 3L,
                 WebuntisId = 1322,
                 Name = "F.302b UV",
             },
             new Room
             {
-                Id = long.MaxValue - 4L,
+                Id = -1L - 4L,
                 WebuntisId = 1323,
                 Name = "F.304 UV",
             });
