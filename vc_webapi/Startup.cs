@@ -129,14 +129,7 @@ namespace vc_webapi
             });
 
             //Enable swagger (doc generation)
-            app.UseSwagger(c =>
-            {
-                c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
-                {
-                    string url = $"{httpReq.Scheme}://{httpReq.Host.Value}";
-                    swaggerDoc.Servers = new List<OpenApiServer> { new OpenApiServer { Url = url } };
-                });
-            });
+            app.UseSwagger();
 
             //Enable swagger UI
             app.UseSwaggerUI(c =>

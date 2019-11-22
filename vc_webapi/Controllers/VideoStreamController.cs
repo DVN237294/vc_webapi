@@ -36,7 +36,6 @@ namespace vc_webapi.Controllers
         public async Task<IActionResult> GetVideo([FromRoute] long videoId)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (videoId <= 0) return BadRequest(videoId);
 
             Video video = await db.Videos.Include(v => v.Properties).Where(p => p.Id == videoId).SingleOrDefaultAsync();
             if (video == null) return BadRequest(videoId);
