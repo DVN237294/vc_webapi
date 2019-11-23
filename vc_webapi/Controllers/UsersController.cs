@@ -34,7 +34,7 @@ namespace vc_webapi.Controllers
                 return NotFound();
             }
 
-            return Ok(user.Id);
+            return Ok(user);
         }
     }
 }
