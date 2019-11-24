@@ -21,6 +21,8 @@ namespace vc_webapi.Model
         [System.Text.Json.Serialization.JsonIgnore]
         public ICollection<Participant> DbParticipants { get; set; }
         public ICollection<Comment> Comments { get; set; }
+        public ICollection<Notification> Notifications { get; set; }
+
 
     }
 }

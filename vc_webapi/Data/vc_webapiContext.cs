@@ -21,6 +21,7 @@ namespace vc_webapi.Data
         public DbSet<VideoProperties> VideoProperties { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<ScheduledSession> ScheduledSessions { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
