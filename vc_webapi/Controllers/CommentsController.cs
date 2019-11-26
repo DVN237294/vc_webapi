@@ -34,18 +34,16 @@ namespace vc_webapi.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var video = await db.Videos.FindAsync(videoId);
 
             User user = await this.User(db);
-
             if (user != null)
             {
+                var video = await db.Videos.FindAsync(videoId);
                 if (video != null)
                 {
                     db.Comments.Add(new Comment
                     {
                         User = user,
-                        UserName = user.UserName,
                         CommentTime = DateTime.UtcNow,
                         Message = message,
                         Video = video
@@ -67,6 +65,7 @@ namespace vc_webapi.Controllers
                 return BadRequest(ModelState);
             }
 
+            var user = await this.User(db);
             var video = await db.Videos.FindAsync(videoId);
 
             if (video == null)
@@ -74,10 +73,21 @@ namespace vc_webapi.Controllers
                 return NotFound();
             }
 
-            var commentsFromVideo = db.Comments.Where(i => i.Video.Id == videoId);
-            return await commentsFromVideo.ToListAsync();
+            var comments = await db.Comments.Where(i => i.Video.Id == videoId)
+                .Include(c => c.User)
+                .ToListAsync();
+
+            if (user != null)
+            {
+                foreach (var comment in comments)
+                {
+                    comment.Deletable = comment.User.Id == user.Id || user is Admin;
+                }
             }
-        
+
+            return comments;
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteComment([FromRoute] long id)
         {
@@ -85,21 +95,22 @@ namespace vc_webapi.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            if (await this.User(db) is Admin)
+            var user = await this.User(db);
+            var comment = await db.Comments.Include(c => c.User).FirstOrDefaultAsync(c => c.Id == id);
+            if (comment == null)
             {
-                var comment = await db.Comments.FindAsync(id);
-                if (comment == null)
-                {
-                    return NotFound();
-                }
-
-                db.Comments.Remove(comment);
-                await db.SaveChangesAsync();
-
-                return Ok(comment);
+                return NotFound();
             }
-            return Unauthorized();
+
+            if (comment.User.Id != user.Id && !(user is Admin))
+            {
+                return Forbid();
+            }
+
+            db.Comments.Remove(comment);
+            await db.SaveChangesAsync();
+
+            return Ok(comment);
         }
 
     }
