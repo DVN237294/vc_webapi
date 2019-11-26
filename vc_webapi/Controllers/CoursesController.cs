@@ -26,6 +26,7 @@ namespace vc_webapi.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Course>>> GetAllCourses([FromQuery] int limitCourses = int.MaxValue, [FromQuery] bool includeSessions = false, [FromQuery] bool includeSessionRecordings = false, [FromQuery] bool includeSessionParticipants = false)
         {
             var query = db.Courses
@@ -38,6 +39,7 @@ namespace vc_webapi.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetSpecificCourse([FromRoute] long id, [FromQuery] bool includeSessions = false, [FromQuery] bool includeSessionRecordings = false, [FromQuery] bool includeSessionParticipants = false)
         {
             if (!ModelState.IsValid)
