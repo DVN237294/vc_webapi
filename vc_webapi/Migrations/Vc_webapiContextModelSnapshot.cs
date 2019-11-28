@@ -123,29 +123,6 @@ namespace vc_webapi.Migrations
                         });
                 });
 
-            modelBuilder.Entity("vc_webapi.Model.Notification", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTime>("date")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("message")
-                        .HasColumnType("text");
-
-                    b.Property<long>("userId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("userId");
-
-                    b.ToTable("Notification");
-                });
-
             modelBuilder.Entity("vc_webapi.Model.Participant", b =>
                 {
                     b.Property<long>("Id")
@@ -654,15 +631,6 @@ namespace vc_webapi.Migrations
                     b.HasOne("vc_webapi.Model.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("vc_webapi.Model.Notification", b =>
-                {
-                    b.HasOne("vc_webapi.Model.User", "user")
-                        .WithMany("Notifications")
-                        .HasForeignKey("userId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("vc_webapi.Model.Participant", b =>
