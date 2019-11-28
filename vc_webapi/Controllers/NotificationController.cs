@@ -27,23 +27,22 @@ namespace vc_webapi.Model.API
             db = context;
         }
 
-        
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Notification>>> GetNotifications(long userId)
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<Notification>>> GetMyNotifications()
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
             User user = await this.User(db);
 
             if (user != null)
             {
-                var notificationsFromUser = db.Notifications.Where(u => user.Id == userId);
+                var notificationsFromUser = db.Notifications.Where(u => u.UserId == user.Id);
                 return await notificationsFromUser.ToListAsync();
             }
-            return BadRequest();
+            return new List<Notification>();
         }
 
 

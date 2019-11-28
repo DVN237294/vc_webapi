@@ -15,9 +15,9 @@ namespace vc_webapi.Model
         public long Id { get; set; }
         [JsonIgnore]
         [System.Text.Json.Serialization.JsonIgnore]
-        public User user { get; set; }
-        public long userId { get; set; }
-        public string message { get; set; }
-        public DateTime date { get; set; }
+        public User User { get; set; }
+        public long UserId { get; set; }
+        public string Message { get; set; }
+        public DateTime NotificationTimeUtc { get; set; }
     }
 }
