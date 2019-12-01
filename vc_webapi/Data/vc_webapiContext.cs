@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using vc_webapi.Controllers;
 using vc_webapi.Model;
@@ -46,7 +47,7 @@ namespace vc_webapi.Data
             builder.Entity<Room>()
                 .HasIndex(u => u.Name)
                 .IsUnique();
-            
+
             builder.Entity<ScheduledSession>()
                 .HasOne(x => x.Course)
                 .WithMany(x => x.ScheduledSessions)
@@ -60,7 +61,19 @@ namespace vc_webapi.Data
 
             builder.Entity<ScheduledSession>()
                 .HasAlternateKey(x => x.WebuntisId);
-            
+
+            builder.Entity<RouterLinkParam>()
+                .Property(e => e.Param)
+                .HasConversion(
+                    v => v.ToString(),
+                    v => (LinkParam)Enum.Parse(typeof(LinkParam), v));
+
+            builder.Entity<Notification>()
+                .Property(e => e.RouterLink)
+                .HasConversion(
+                    v => v.ToString(),
+                    v => (RouterLink)Enum.Parse(typeof(RouterLink), v));
+
             User testStudent = new Student
             {
                 FullName = "BPR Test Student",
@@ -363,7 +376,7 @@ namespace vc_webapi.Data
                 Id = -1L,
                 WebuntisId = 1319,
                 Name = "F.301a UV",
-            }, 
+            },
             new Room
             {
                 Id = -1L - 1L,
@@ -388,6 +401,42 @@ namespace vc_webapi.Data
                 WebuntisId = 1323,
                 Name = "F.304 UV",
             });
+
+            builder.Entity<Comment>().HasData(new
+            {
+                Id = -1L,
+                UserId = -1L,
+                VideoId = -1L,
+                CommentTime = new DateTime(2019, 10, 5, 22, 3, 59),
+                Message = "Comment to test notifications! @teststudent"
+            });
+
+            builder.Entity<RouterLinkParam>().HasData(
+                new
+                {
+                    Id = -1L,
+                    Param = LinkParam.VideoId,
+                    Value = (-1L).ToString(),
+                    NotificationId = -1L
+                },
+                new
+                {
+                    Id = -2L,
+                    Param = LinkParam.CommentId,
+                    Value = (-1L).ToString(),
+                    NotificationId = -1L
+                });
+
+            builder.Entity<Notification>().HasData(
+                new Notification
+                {
+                    Message = "You were mentioned in a comment by BPR Test Student, in video \"SDJ Lesson 1\"",
+                    NotificationTimeUtc = new DateTime(2019, 10, 5, 22, 4, 02),
+                    Id = -1L,
+                    Dismissed = false,
+                    UserId = -1L,
+                    RouterLink = RouterLink.Comment
+                });
         }
     }
 }

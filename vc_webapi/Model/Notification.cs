@@ -19,5 +19,8 @@ namespace vc_webapi.Model
         public long UserId { get; set; }
         public string Message { get; set; }
         public DateTime NotificationTimeUtc { get; set; }
+        public bool Dismissed { get; set; }
+        public RouterLink RouterLink { get; set; }
+        public ICollection<RouterLinkParam> RouterLinkParameters { get; set; }
     }
 }

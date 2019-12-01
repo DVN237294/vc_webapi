@@ -102,7 +102,7 @@ namespace vc_webapi
             });
 
             services.AddSingleton<VideoStoreService>();
-
+            services.AddScoped<NotificationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
