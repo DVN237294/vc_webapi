@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using vc_webapi.Model.Users;
 using vc_webapi.Model.API;
 using Microsoft.EntityFrameworkCore.Query;
+using vc_webapi.Services;
 
 namespace vc_webapi.Controllers
 {
@@ -21,9 +22,11 @@ namespace vc_webapi.Controllers
     public class CommentsController : ControllerBase
     {
         private readonly Vc_webapiContext db;
+        private readonly NotificationService notificationService;
 
-        public CommentsController(Vc_webapiContext context)
+        public CommentsController(Vc_webapiContext context, NotificationService notificationService)
         {
+            this.notificationService = notificationService;
             db = context;
         }
 
@@ -41,15 +44,16 @@ namespace vc_webapi.Controllers
                 var video = await db.Videos.FindAsync(videoId);
                 if (video != null)
                 {
-                    db.Comments.Add(new Comment
+                    var comment = new Comment
                     {
                         User = user,
                         CommentTime = DateTime.UtcNow,
                         Message = message,
                         Video = video
-
-                    });
+                    };
+                    db.Comments.Add(comment);
                     await db.SaveChangesAsync();
+                    await notificationService.PostUserMentions(comment);
                     return Ok();
                 }
             }
@@ -88,7 +92,7 @@ namespace vc_webapi.Controllers
             return comments;
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:long}")]
         public async Task<IActionResult> DeleteComment([FromRoute] long id)
         {
             if (!ModelState.IsValid)

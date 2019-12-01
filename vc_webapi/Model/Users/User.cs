@@ -25,6 +25,8 @@ namespace vc_webapi.Model
         [Newtonsoft.Json.JsonIgnore]
         [System.Text.Json.Serialization.JsonIgnore]
         public ICollection<Comment> Comments { get; set; }
+        public ICollection<Notification> Notifications { get; set; }
+
 
     }
 }
