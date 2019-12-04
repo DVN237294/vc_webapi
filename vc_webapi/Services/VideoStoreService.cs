@@ -17,8 +17,8 @@ namespace vc_webapi.Services
     public class VideoStoreService
     {
         private readonly string VideoRoot;
-        private static readonly ConcurrentDictionary<string, Video> VideoUploadTokens = new ConcurrentDictionary<string, Video>();
         private readonly TimeSpan UPLOAD_TIMEOUT = TimeSpan.FromMinutes(10);
+        private static readonly ConcurrentDictionary<string, Video> VideoUploadTokens = new ConcurrentDictionary<string, Video>();
         public VideoStoreService(IWebHostEnvironment env, IConfiguration configuration)
         {
             string storeRoot = configuration["VideoStoreRoot"];

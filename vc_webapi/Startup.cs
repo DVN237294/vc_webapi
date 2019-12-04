@@ -83,7 +83,8 @@ namespace vc_webapi
             });
 
             var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("39e9fab8f48f2b49d070b7aa135230a97d1b2a4e02aa153965f50c0880596bad"));
-            services.AddSingleton<IJWTTokenGenerator>(new JWTTokenHelper(new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256Signature)));
+            services.AddSingleton(new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256Signature));
+            services.AddSingleton(typeof(IJWTTokenGenerator), typeof(JWTTokenHelper));
             services.AddAuthentication(opts =>
             {
                 opts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

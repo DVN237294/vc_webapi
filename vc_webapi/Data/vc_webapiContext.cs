@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using vc_webapi.Controllers;
 using vc_webapi.Model;
+using vc_webapi.Model.Enums;
 using vc_webapi.Model.Users;
 
 namespace vc_webapi.Data

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using vc_webapi.Data;
 using vc_webapi.Model;
+using vc_webapi.Model.Enums;
 
 namespace vc_webapi.Services
 {
