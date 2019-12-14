@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Concurrent;
@@ -8,22 +7,20 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using vc_webapi.Data;
 using vc_webapi.Model;
-using vc_webapi.Model.API;
 
 namespace vc_webapi.Services
 {
     public class VideoStoreService
     {
-        private readonly string VideoRoot;
+        public string VideoRoot { get; }
         private readonly TimeSpan UPLOAD_TIMEOUT = TimeSpan.FromMinutes(10);
         private static readonly ConcurrentDictionary<string, Video> VideoUploadTokens = new ConcurrentDictionary<string, Video>();
         public VideoStoreService(IWebHostEnvironment env, IConfiguration configuration)
         {
             string storeRoot = configuration["VideoStoreRoot"];
             if (string.IsNullOrWhiteSpace(storeRoot))
-                this.VideoRoot = Path.Combine(env.ContentRootPath, "vc_videostore");
+                this.VideoRoot = env.ContentRootPath;
             else
                 this.VideoRoot = Environment.ExpandEnvironmentVariables(storeRoot);
 
@@ -55,8 +52,8 @@ namespace vc_webapi.Services
                     if (properties.FileSize < expectedLength)
                         fileOk = false;
                 }
-                if(!fileOk)
-                    File.Delete(physicalFilePath);
+                if (!fileOk)
+                    await DeleteVideoAsync(properties);
             }
             if (!fileOk)
                 return null;
@@ -74,6 +71,23 @@ namespace vc_webapi.Services
             return null;
         }
         public bool GetUploadModel(string token, out Video videoModel) => VideoUploadTokens.TryGetValue(token, out videoModel);
+        public async Task<bool> DeleteVideoAsync(VideoProperties properties)
+        {
+            //Async delete operation that waits until the file system has deleted the file.
+            var fi = new FileInfo(PhysicalFilePath(properties.VirtualFilePath));
+            if (fi.Exists)
+            {
+                fi.Delete();
+                fi.Refresh();
+                while (fi.Exists)
+                {
+                    await Task.Delay(100);
+                    fi.Refresh();
+                }
+                return true;
+            }
+            return false;
+        }
         public Stream GetVideo(VideoProperties properties) => new FileStream(PhysicalFilePath(properties.VirtualFilePath), FileMode.Open, FileAccess.Read, FileShare.Read, 4096, true);
         private string PhysicalFilePath(string virtualFilePath) => Path.Combine(this.VideoRoot, virtualFilePath);
     }

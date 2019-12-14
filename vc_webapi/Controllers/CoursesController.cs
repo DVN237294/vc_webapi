@@ -29,6 +29,7 @@ namespace vc_webapi.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Course>>> GetAllCourses([FromQuery] int limitCourses = int.MaxValue, [FromQuery] bool includeSessions = false, [FromQuery] bool includeSessionRecordings = false, [FromQuery] bool includeSessionParticipants = false)
         {
+            includeSessions = includeSessions || includeSessionRecordings || includeSessionParticipants;
             var query = db.Courses
                 .If(includeSessions, q => q.Include(e => e.Sessions)
                     .If(includeSessionParticipants, q2 => q2.ThenInclude(e => e.DbParticipants).ThenInclude(e => e.User))
@@ -42,11 +43,6 @@ namespace vc_webapi.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetSpecificCourse([FromRoute] long id, [FromQuery] bool includeSessions = false, [FromQuery] bool includeSessionRecordings = false, [FromQuery] bool includeSessionParticipants = false)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var course = await db.Courses
                 .If(includeSessions, q => q.Include(e => e.Sessions)
                     .If(includeSessionParticipants, q2 => q2.ThenInclude(e => e.DbParticipants).ThenInclude(e => e.User))
@@ -111,26 +107,30 @@ namespace vc_webapi.Controllers
             {
                 return BadRequest(ModelState);
             }
+            if(session == null || session.Recordings == null || session.Recordings.Count == 0)
+            {
+                return BadRequest();
+            }
 
+            var course = await db.Courses.Where(c => c.Id == courseId).Include(c => c.Sessions).SingleOrDefaultAsync();
+            if (course == null)
+            {
+                return NotFound();
+            }
             if (await this.User(db) is Admin)
             {
-                var course = await db.Courses.FindAsync(courseId);
-                if (course == null)
-                {
-                    return NotFound();
-                }
+                List<User> users = new List<User>();
+                if (session.ParticipantUserIds != null && session.ParticipantUserIds.Count > 0)
+                    //Contains implementation of ICollection is not supported in EF, so cast to IEnumerable:
+                    users = await db.Users.Where(user => (session.ParticipantUserIds as IEnumerable<long>).Contains(user.Id)).ToListAsync();
 
-                //Contains implementation of ICollection is not supported in EF, so cast to IEnumerable:
-                var users = await db.Users.Where(user => (session.ParticipantUserIds as IEnumerable<long>).Contains(user.Id)).ToListAsync();
-                course.Sessions = new List<Session>
+                db.Videos.AddRange(session.Recordings);
+                course.Sessions.Add(new Session
                 {
-                    new Session
-                    {
-                        Date = session.Date,
-                        Recordings = session.Recordings,
-                        Participants = users
-                    }
-                };
+                    Date = session.Date,
+                    Recordings = session.Recordings,
+                    Participants = users
+                });
                 await db.SaveChangesAsync();
                 return Ok();
             }

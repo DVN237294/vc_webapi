@@ -58,7 +58,7 @@ namespace vc_webapi.Controllers
                 return Ok(new UlTokenModel { UlToken = ulToken });
             }
 
-            return Unauthorized();
+            return Forbid();
         }
 
         [HttpPost("{ulToken}")]

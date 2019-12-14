@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,6 +62,13 @@ namespace vc_webapi.Data
 
             builder.Entity<ScheduledSession>()
                 .HasAlternateKey(x => x.WebuntisId);
+
+            if (!Database.IsNpgsql())
+            {
+                //To allow for SQLite to use this db in integration-tests
+                builder.Entity<ScheduledSession>()
+                    .Ignore(x => x.WebuntisTeacherIds);
+            }
 
             builder.Entity<RouterLinkParam>()
                 .Property(e => e.Param)
