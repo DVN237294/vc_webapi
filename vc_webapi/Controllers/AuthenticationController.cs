@@ -49,15 +49,15 @@ namespace vc_webapi.Controllers
             if (string.IsNullOrEmpty(userModel.Password) || string.IsNullOrEmpty(userModel.UserName))
                 return BadRequest();
 
-            var createUserResult = await userManager.CreateAsync(new IdentityUser()
+            var user = new IdentityUser()
             {
                 Email = userModel.Email,
                 UserName = userModel.UserName
-            }, userModel.Password);
+            };
+            var createUserResult = await userManager.CreateAsync(user, userModel.Password);
 
             if (createUserResult.Succeeded)
             {
-                var user = await userManager.FindByNameAsync(userModel.UserName);
                 await userManager.AddClaimsAsync(user, new[] { new Claim("UserId", user.Id), new Claim("UserName", user.UserName) });
 
                 //Decoupling domain users from Identity framework, by correlating a domain user with the identity.

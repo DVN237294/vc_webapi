@@ -20,16 +20,8 @@ namespace vc_webapi.Services
         }
         public async Task PostUserMentions(Comment comment)
         {
-            //Look for users mentioned in the comments
-            IEnumerable<string> userIds = comment.Message.Split(COMMENT_USER_MENTION_ID, StringSplitOptions.None)
-                .Where((str, i) => i > 0 && !string.IsNullOrWhiteSpace(str))
-                .Select(str => 
-                {
-                    int i = str.IndexOf(' ');
-                    return i > -1 ? str.Substring(0, i) : str;
-                });
-
-            IQueryable<Notification> notifications = db.Users.Where(u => userIds.Contains(u.UserName)).Select(user => new Notification
+            IEnumerable<string> userIds = GetUserIdsMentioned(comment);
+            IQueryable <Notification> notifications = db.Users.Where(u => userIds.Contains(u.UserName)).Select(user => new Notification
             {
                 Dismissed = false,
                 NotificationTimeUtc = DateTime.UtcNow,
@@ -53,6 +45,17 @@ namespace vc_webapi.Services
 
             db.Notifications.AddRange(notifications);
             await db.SaveChangesAsync();
+        }
+        private IEnumerable<string> GetUserIdsMentioned(Comment comment)
+        {
+            //Look for users mentioned in the comments
+            return comment.Message.Split(COMMENT_USER_MENTION_ID, StringSplitOptions.None)
+                .Where((str, i) => i > 0 && !string.IsNullOrWhiteSpace(str))
+                .Select(str =>
+                {
+                    int i = str.IndexOf(' ');
+                    return i > -1 ? str.Substring(0, i) : str;
+                });
         }
     }
 

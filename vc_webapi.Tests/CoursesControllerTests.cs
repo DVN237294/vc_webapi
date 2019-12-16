@@ -19,6 +19,7 @@ using Xunit;
 
 namespace vc_webapi.Tests
 {
+    //Integration tests
     public class CoursesControllerTests
     {
         private readonly TestFixture<Vc_webapiContext> fixture = new TestFixture<Vc_webapiContext>(m => new Vc_webapiContext(m));
@@ -144,8 +145,8 @@ namespace vc_webapi.Tests
                 assert: (result, _, db) =>
                 {
                     result.Should().BeOfType<OkObjectResult>();
-                    (result as OkObjectResult).Value.Should().BeOfType<int>();
-                    ((int)(result as OkObjectResult).Value).Should().Be(courses.Count);
+                    result.As<OkObjectResult>().Value.Should().BeOfType<int>();
+                    result.As<OkObjectResult>().Value.Should().Be(courses.Count);
                     db.Courses.Should().Contain(courses);
                 });
         }
@@ -176,7 +177,7 @@ namespace vc_webapi.Tests
         [Fact]
         public async Task Add_CallingUserIsNotAdmin_ReturnsNotAuthorized()
         {
-            var course =  new Course() { Id = 12345L, WebuntisCourseId = 12345L };
+            var course = new Course() { Id = 12345L, WebuntisCourseId = 12345L };
             await fixture.RunWithDatabaseAsync(
                 arrange: async db =>
                 {
@@ -226,7 +227,7 @@ namespace vc_webapi.Tests
             var model = new AddSessionModel()
             {
                 Date = DateTime.UtcNow,
-                Recordings = new []
+                Recordings = new[]
                 {
                     new Video()
                     {
@@ -287,7 +288,7 @@ namespace vc_webapi.Tests
                         }
                     }
                 },
-                ParticipantUserIds = new []
+                ParticipantUserIds = new[]
                 {
                     1234567L
                 }
